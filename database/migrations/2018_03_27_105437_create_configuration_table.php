@@ -25,7 +25,7 @@ class CreateConfigurationTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('max_friends')->default(500)->comment('最大好友数');
             $table->unsignedInteger('max_holding_stocks')->default(500)->comment('最大持股数');
-            $table->double('base_ipo_shares')->default(100)->comment('ipo股票发行基数');
+            $table->decimal('base_ipo_shares', 18, 8)->default(100)->comment('ipo股票发行基数');
             $table->unsignedInteger('player_id')->default(0)->comment('玩家id,0为通用配置');
             $table->timestamps();
         });

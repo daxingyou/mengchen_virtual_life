@@ -17,8 +17,8 @@ class CreateStockHoldersTable extends Migration
         Schema::create('stock_holders', function (Blueprint $table) {
             $table->string('stock_code', 8)->comment('股票代码');
             $table->unsignedInteger('holder_id')->comment('持股人玩家id');
-            $table->double('total_shares')->comment('持股数');
-            $table->double('frozen_shares')->comment('冻结股数');
+            $table->decimal('total_shares', 18, 8)->comment('持股数');
+            $table->decimal('frozen_shares', 18, 8)->comment('冻结股数');
             $table->timestamps();
 
             $table->index('stock_code');

@@ -20,8 +20,8 @@ class CreateStockIpoTable extends Migration
             $table->string('stock_code', 8)->comment('股票代码');
             $table->unsignedInteger('stock_type_id')->comment('股票类型id');
             $table->unsignedInteger('issuer_id')->comment('股票发行人id');
-            $table->double('ipo_price')->comment('发行价');
-            $table->double('ipo_shares')->comment('发行数量');
+            $table->decimal('ipo_price', 18, 8)->comment('发行价');
+            $table->decimal('ipo_shares', 18, 8)->comment('发行数量');
             $table->unsignedInteger('dividend_policy_id')->comment('分红方案id');
             $table->string('intro')->nullable()->comment('简介');
             $table->unsignedInteger('status')->default(1)->comment('状态(1-发行成功)');

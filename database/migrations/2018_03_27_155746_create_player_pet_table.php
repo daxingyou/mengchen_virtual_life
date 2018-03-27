@@ -18,7 +18,7 @@ class CreatePlayerPetTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('player_id')->comment('玩家id');
             $table->string('pet_name')->comment('宠物名字');
-            $table->double('pet_exp')->comment('宠物经验');
+            $table->decimal('pet_exp', 18, 8)->comment('宠物经验');
             $table->timestamps();
         });
     }

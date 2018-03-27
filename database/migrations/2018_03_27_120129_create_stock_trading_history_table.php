@@ -17,8 +17,8 @@ class CreateStockTradingHistoryTable extends Migration
         Schema::create('stock_trading_history', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('stock_code', 8)->comment('股票代码');
-            $table->double('price')->comment('成交价');
-            $table->double('shares')->comment('成交数量');
+            $table->decimal('price', 18, 8)->comment('成交价');
+            $table->decimal('shares', 18, 8)->comment('成交数量');
             $table->string('taker_direction')->comment('吃单方向');
             $table->unsignedInteger('bidding_order_id')->comment('买单id');
             $table->unsignedInteger('asking_order_id')->comment('卖单id');

@@ -23,7 +23,7 @@ class CreatePlayersTable extends Migration
             $table->string('real_name')->nullable()->comment('真实姓名');
             $table->string('identity_id', 18)->nullable()->unique()->comment('身份证id');
             $table->string('intro')->nullable()->comment('个人简介');
-            $table->double('game_points')->default(0)->comment('游戏赚取身价');
+            $table->decimal('game_points', 18, 8)->default(0)->comment('游戏赚取身价');
             $table->timestamps();
         });
 

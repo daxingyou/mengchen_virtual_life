@@ -18,10 +18,10 @@ class CreateStockAskingTable extends Migration
             $table->bigIncrements('id');
             $table->string('stock_code', 8)->comment('股票代码');
             $table->unsignedInteger('player_id')->comment('下单者玩家id');
-            $table->double('price')->comment('下单价');
-            $table->double('shares')->comment('下单数量');
-            $table->double('avg_price')->comment('平均成交价');
-            $table->double('remained_shares')->comment('剩余待成交股数');
+            $table->decimal('price', 18, 8)->comment('下单价');
+            $table->decimal('shares', 18, 8)->comment('下单数量');
+            $table->decimal('avg_price', 18, 8)->comment('平均成交价');
+            $table->decimal('remained_shares', 18, 8)->comment('剩余待成交股数');
             $table->unsignedInteger('status')->comment('状态(1-待成交,2-部分成交,3-完全成交,4-已取消)');
             $table->timestamps();
 
