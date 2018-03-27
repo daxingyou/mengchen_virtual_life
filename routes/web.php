@@ -44,3 +44,12 @@ Route::group([
     Route::view('home', 'admin.home');
     Route::view('system/log', 'admin.system.log');
 });
+
+//小程序接口
+Route::group([
+    'middleware' => ['wechat.mock', 'wechat.mauth'],
+    'prefix' => 'wechat',
+    'namespace' => 'Wechat',
+], function () {
+    Route::get('pet/interaction', 'PetController@interact');
+});
