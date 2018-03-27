@@ -19,6 +19,7 @@ class CreateGameRewardTable extends Migration
             $table->unsignedInteger('player_id')->comment('玩家id');
             $table->string('action')->comment('游戏行为');
             $table->double('reward')->comment('赚取身价数');
+            $table->double('pet_exp')->comment('赚取宠物经验');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             $table->index('player_id');
