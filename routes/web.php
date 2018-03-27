@@ -51,5 +51,5 @@ Route::group([
     'prefix' => 'wechat',
     'namespace' => 'Wechat',
 ], function () {
-    Route::get('pet/interaction', 'PetController@interact');
+    Route::post('pet/interaction', 'PetController@interact');
 });

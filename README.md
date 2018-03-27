@@ -109,3 +109,10 @@ cd $codeDir
 | URI   | Method  | Description |     
 | ----  | :-----: | ----------: |
 | /api/info | GET | 获取用户个人信息 |
+
+### 微信小程序接口
+> **前缀/wechat**  
+
+| URI   | Method  | Description |     
+| ----  | :-----: | ----------: |
+| pet/interaction | POST | 宠物互动 |
