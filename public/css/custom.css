@@ -1,0 +1,23 @@
+[v-cloak] {
+    display:none;
+}
+
+/* 手机端 */
+@media (max-width: 768px) {
+    .phone-scrollable {
+        max-height: 340px;
+        overflow-y: scroll;
+    }
+}
+
+/* pc端 */
+@media (min-width: 769px) {
+/*    .modal-dialog {
+        width: 35%;
+    }*/
+
+    /* content-header下面的h1标签的高度(防止h1标签内容为空时面包屑导航被遮住) */
+    .content-header h1 {
+        height: 26px;
+    }
+}

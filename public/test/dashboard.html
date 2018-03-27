@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Volumes/Code/code/app_base/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href=".css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/style.css" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]>
+  <script src=".js/html5shiv.min.js"></script>
+  <script src=".js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="index.html">/Volumes/Code/code/app_base/app</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/ForgotPasswordController.php.html#8">App\Http\Controllers\Auth\ForgotPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#12">App\Http\Controllers\Auth\RegisterController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ResetPasswordController.php.html#8">App\Http\Controllers\Auth\ResetPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/LogNotification.php.html#10">App\Listeners\LogNotification</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#8">App\Providers\BroadcastServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/AdminRequest.php.html#7">App\Http\Requests\AdminRequest</a></td><td class="text-right">30%</td></tr>
+       <tr><td><a href="Models/User.php.html#8">App\Models\User</a></td><td class="text-right">44%</td></tr>
+       <tr><td><a href="Models/Group.php.html#13">App\Models\Group</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/SystemController.php.html#18">App\Http\Controllers\Admin\SystemController</a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="Http/Controllers/InfoController.php.html#9">App\Http\Controllers\InfoController</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Exceptions/Handler.php.html#9">App\Exceptions\Handler</a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#12">App\Http\Controllers\Auth\RegisterController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Models/User.php.html#8">App\Models\User</a></td><td class="text-right">18</td></tr>
+       <tr><td><a href="Http/Requests/AdminRequest.php.html#7">App\Http\Requests\AdminRequest</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/SystemController.php.html#18">App\Http\Controllers\Admin\SystemController</a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Exceptions/Handler.php.html#9">App\Exceptions\Handler</a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#15"><abbr title="App\Providers\BroadcastServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/AdminRequest.php.html#33"><abbr title="App\Http\Requests\AdminRequest::validate">validate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#82"><abbr title="App\Models\User::children">children</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#76"><abbr title="App\Models\User::hasChild">hasChild</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#70"><abbr title="App\Models\User::isChild">isChild</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#64"><abbr title="App\Models\User::routeNotificationForMail">routeNotificationForMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Group.php.html#23"><abbr title="App\Models\Group::users">users</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/LogNotification.php.html#28"><abbr title="App\Listeners\LogNotification::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listeners/LogNotification.php.html#17"><abbr title="App\Listeners\LogNotification::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/InfoController.php.html#30"><abbr title="App\Http\Controllers\InfoController::getContentHeaderH1">getContentHeaderH1</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ResetPasswordController.php.html#35"><abbr title="App\Http\Controllers\Auth\ResetPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#76"><abbr title="App\Http\Controllers\Auth\RegisterController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#67"><abbr title="App\Http\Controllers\Auth\RegisterController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#50"><abbr title="App\Http\Controllers\Auth\RegisterController::validator">validator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#39"><abbr title="App\Http\Controllers\Auth\RegisterController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ForgotPasswordController.php.html#28"><abbr title="App\Http\Controllers\Auth\ForgotPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/SystemController.php.html#29"><abbr title="App\Http\Controllers\Admin\SystemController::showLog">showLog</abbr></a></td><td class="text-right">46%</td></tr>
+       <tr><td><a href="Models/User.php.html#48"><abbr title="App\Models\User::parent">parent</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Exceptions/Handler.php.html#36"><abbr title="App\Exceptions\Handler::report">report</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Models/OperationLogs.php.html#16"><abbr title="App\Models\OperationLogs::add">add</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Requests/AdminRequest.php.html#33"><abbr title="App\Http\Requests\AdminRequest::validate">validate</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#76"><abbr title="App\Http\Controllers\Auth\RegisterController::register">register</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/SystemController.php.html#29"><abbr title="App\Http\Controllers\Admin\SystemController::showLog">showLog</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Exceptions/Handler.php.html#36"><abbr title="App\Exceptions\Handler::report">report</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Models/User.php.html#48"><abbr title="App\Models\User::parent">parent</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Models/OperationLogs.php.html#16"><abbr title="App\Models\OperationLogs::add">add</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.0.1</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.3</a> with <a href="https://xdebug.org/">Xdebug 2.6.0</a> and <a href="https://phpunit.de/">PHPUnit 7.0.2</a> at Mon Mar 26 17:23:12 CST 2018.</small>
+    </p>
+   </footer>
+  </div>
+  <script src=".js/jquery.min.js" type="text/javascript"></script>
+  <script src=".js/bootstrap.min.js" type="text/javascript"></script>
+  <script src=".js/holder.min.js" type="text/javascript"></script>
+  <script src=".js/d3.min.js" type="text/javascript"></script>
+  <script src=".js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,0,0,1,1,2,1,0,1,1,20], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([16,0,0,0,0,1,0,1,1,1,0,35], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,2,"<a href=\"Console\/Kernel.php.html#8\">App\\Console\\Kernel<\/a>"],[100,2,"<a href=\"Exceptions\/CustomException.php.html#7\">App\\Exceptions\\CustomException<\/a>"],[80,5,"<a href=\"Exceptions\/Handler.php.html#9\">App\\Exceptions\\Handler<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Admin\/AdminController.php.html#21\">App\\Http\\Controllers\\Admin\\AdminController<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/HomeController.php.html#19\">App\\Http\\Controllers\\Admin\\HomeController<\/a>"],[56.25,6,"<a href=\"Http\/Controllers\/Admin\/SystemController.php.html#18\">App\\Http\\Controllers\\Admin\\SystemController<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Admin\/ViewController.php.html#14\">App\\Http\\Controllers\\Admin\\ViewController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ForgotPasswordController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#10\">App\\Http\\Controllers\\Auth\\LoginController<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#12\">App\\Http\\Controllers\\Auth\\RegisterController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ResetPasswordController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#10\">App\\Http\\Controllers\\Controller<\/a>"],[100,2,"<a href=\"Http\/Controllers\/HomeController.php.html#7\">App\\Http\\Controllers\\HomeController<\/a>"],[66.66666666666666,3,"<a href=\"Http\/Controllers\/InfoController.php.html#9\">App\\Http\\Controllers\\InfoController<\/a>"],[100,0,"<a href=\"Http\/Kernel.php.html#7\">App\\Http\\Kernel<\/a>"],[100,0,"<a href=\"Http\/Middleware\/EncryptCookies.php.html#7\">App\\Http\\Middleware\\EncryptCookies<\/a>"],[100,3,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#8\">App\\Http\\Middleware\\RedirectIfAuthenticated<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrimStrings.php.html#7\">App\\Http\\Middleware\\TrimStrings<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrustProxies.php.html#8\">App\\Http\\Middleware\\TrustProxies<\/a>"],[100,0,"<a href=\"Http\/Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[30,5,"<a href=\"Http\/Requests\/AdminRequest.php.html#7\">App\\Http\\Requests\\AdminRequest<\/a>"],[0,2,"<a href=\"Listeners\/LogNotification.php.html#10\">App\\Listeners\\LogNotification<\/a>"],[50,2,"<a href=\"Models\/Group.php.html#13\">App\\Models\\Group<\/a>"],[90,3,"<a href=\"Models\/OperationLogs.php.html#7\">App\\Models\\OperationLogs<\/a>"],[44.44444444444444,8,"<a href=\"Models\/User.php.html#8\">App\\Models\\User<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#8\">App\\Providers\\AppServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#8\">App\\Providers\\AuthServiceProvider<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#8\">App\\Providers\\BroadcastServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#8\">App\\Providers\\EventServiceProvider<\/a>"],[100,4,"<a href=\"Providers\/RouteServiceProvider.php.html#8\">App\\Providers\\RouteServiceProvider<\/a>"],[100,1,"<a href=\"Services\/Paginator.php.html#14\">App\\Services\\Paginator<\/a>"],[100,0,"<a href=\"Models\/GroupIdMap.php.html#5\">GroupIdMap<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Console\/Kernel.php.html#25\">App\\Console\\Kernel::schedule<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#36\">App\\Console\\Kernel::commands<\/a>"],[100,1,"<a href=\"Exceptions\/CustomException.php.html#15\">App\\Exceptions\\CustomException::__construct<\/a>"],[100,1,"<a href=\"Exceptions\/CustomException.php.html#21\">App\\Exceptions\\CustomException::render<\/a>"],[75,4,"<a href=\"Exceptions\/Handler.php.html#36\">App\\Exceptions\\Handler::report<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#53\">App\\Exceptions\\Handler::render<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Admin\/AdminController.php.html#24\">App\\Http\\Controllers\\Admin\\AdminController::updatePass<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/HomeController.php.html#21\">App\\Http\\Controllers\\Admin\\HomeController::show<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Admin\/SystemController.php.html#23\">App\\Http\\Controllers\\Admin\\SystemController::__construct<\/a>"],[46.15384615384615,3,"<a href=\"Http\/Controllers\/Admin\/SystemController.php.html#29\">App\\Http\\Controllers\\Admin\\SystemController::showLog<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/ViewController.php.html#16\">App\\Http\\Controllers\\Admin\\ViewController::home<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/ViewController.php.html#21\">App\\Http\\Controllers\\Admin\\ViewController::systemLog<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#28\">App\\Http\\Controllers\\Auth\\ForgotPasswordController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#41\">App\\Http\\Controllers\\Auth\\LoginController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#46\">App\\Http\\Controllers\\Auth\\LoginController::showLoginForm<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#56\">App\\Http\\Controllers\\Auth\\LoginController::username<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#68\">App\\Http\\Controllers\\Auth\\LoginController::authenticated<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#73\">App\\Http\\Controllers\\Auth\\LoginController::redirectTo<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#39\">App\\Http\\Controllers\\Auth\\RegisterController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#50\">App\\Http\\Controllers\\Auth\\RegisterController::validator<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#67\">App\\Http\\Controllers\\Auth\\RegisterController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#76\">App\\Http\\Controllers\\Auth\\RegisterController::register<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#35\">App\\Http\\Controllers\\Auth\\ResetPasswordController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/HomeController.php.html#14\">App\\Http\\Controllers\\HomeController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/HomeController.php.html#24\">App\\Http\\Controllers\\HomeController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/InfoController.php.html#16\">App\\Http\\Controllers\\InfoController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/InfoController.php.html#25\">App\\Http\\Controllers\\InfoController::info<\/a>"],[0,1,"<a href=\"Http\/Controllers\/InfoController.php.html#30\">App\\Http\\Controllers\\InfoController::getContentHeaderH1<\/a>"],[100,3,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#22\">App\\Http\\Middleware\\RedirectIfAuthenticated::handle<\/a>"],[100,1,"<a href=\"Http\/Requests\/AdminRequest.php.html#14\">App\\Http\\Requests\\AdminRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/AdminRequest.php.html#25\">App\\Http\\Requests\\AdminRequest::rules<\/a>"],[0,3,"<a href=\"Http\/Requests\/AdminRequest.php.html#33\">App\\Http\\Requests\\AdminRequest::validate<\/a>"],[0,1,"<a href=\"Listeners\/LogNotification.php.html#17\">App\\Listeners\\LogNotification::__construct<\/a>"],[0,1,"<a href=\"Listeners\/LogNotification.php.html#28\">App\\Listeners\\LogNotification::handle<\/a>"],[0,1,"<a href=\"Models\/Group.php.html#23\">App\\Models\\Group::users<\/a>"],[100,1,"<a href=\"Models\/Group.php.html#28\">App\\Models\\Group::getViewAccessAttribute<\/a>"],[88.88888888888889,2,"<a href=\"Models\/OperationLogs.php.html#16\">App\\Models\\OperationLogs::add<\/a>"],[100,1,"<a href=\"Models\/OperationLogs.php.html#31\">App\\Models\\OperationLogs::user<\/a>"],[100,1,"<a href=\"Models\/User.php.html#42\">App\\Models\\User::group<\/a>"],[66.66666666666666,2,"<a href=\"Models\/User.php.html#48\">App\\Models\\User::parent<\/a>"],[100,1,"<a href=\"Models\/User.php.html#58\">App\\Models\\User::getIsAdminAttribute<\/a>"],[0,1,"<a href=\"Models\/User.php.html#64\">App\\Models\\User::routeNotificationForMail<\/a>"],[0,1,"<a href=\"Models\/User.php.html#70\">App\\Models\\User::isChild<\/a>"],[0,1,"<a href=\"Models\/User.php.html#76\">App\\Models\\User::hasChild<\/a>"],[0,1,"<a href=\"Models\/User.php.html#82\">App\\Models\\User::children<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#15\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#25\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#24\">App\\Providers\\AuthServiceProvider::boot<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#15\">App\\Providers\\BroadcastServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#26\">App\\Providers\\EventServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#24\">App\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#36\">App\\Providers\\RouteServiceProvider::map<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#52\">App\\Providers\\RouteServiceProvider::mapWebRoutes<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#66\">App\\Providers\\RouteServiceProvider::mapApiRoutes<\/a>"],[100,1,"<a href=\"Services\/Paginator.php.html#17\">App\\Services\\Paginator::paginate<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
