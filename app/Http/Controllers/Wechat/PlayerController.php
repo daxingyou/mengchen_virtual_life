@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 use Illuminate\Http\Request;
 
-class PersonalInfoController extends MiniProgramController
+class PlayerController extends MiniProgramController
 {
     public function getInfo(Request $request)
     {

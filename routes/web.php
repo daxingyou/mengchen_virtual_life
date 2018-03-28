@@ -52,8 +52,8 @@ Route::group([
     'namespace' => 'Wechat',
 ], function () {
     Route::post('pet/interaction', 'PetController@interact');
-    Route::get('/personal/info', 'PersonalInfoController@getInfo');
-    Route::put('/personal/info', 'PersonalInfoController@updateInfo');
+    Route::get('/player/info', 'PlayerController@getInfo');
+    Route::put('/player/info', 'PlayerController@updateInfo');
     Route::post('points/purchase', 'PointsController@purchase');
     Route::get('stock/type', 'StockTypeController@showStockType');
     Route::post('stock/type', 'StockTypeController@addStockType');
