@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Wechat;
 
-use App\Services\WechatMiniProgramService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class PersonalInfoController extends Controller
+class PersonalInfoController extends MiniProgramController
 {
     public function getInfo(Request $request)
     {
-        $player = WechatMiniProgramService::getPlayer($request);
+        $player = $this->player($request);
         return $player;
     }
 
@@ -28,11 +26,9 @@ class PersonalInfoController extends Controller
             'nickname', 'gender', 'profession', 'real_name', 'identity_id', 'intro',
         ]);
 
-        $player = WechatMiniProgramService::getPlayer($request);
+        $player = $this->player($request);
         $player->update($data);
 
-        return [
-            'message' => '操作成功',
-        ];
+        return $this->res('操作成功');
     }
 }

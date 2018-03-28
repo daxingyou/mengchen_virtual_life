@@ -3,26 +3,18 @@
 namespace App\Http\Controllers\Wechat;
 
 use App\Models\GameReward;
-use App\Models\PlayerPet;
-use App\Services\WechatMiniProgramService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class PetController extends Controller
+class PetController extends MiniProgramController
 {
-    public function __construct(Request $request)
-    {
-        parent::__construct($request);
-    }
-
     public function interact(Request $request)
     {
         $this->validate($request, [
             'action' => 'required|string|max:255',
         ]);
         $action = $request->input('action');
-        $player = WechatMiniProgramService::getPlayer($request)->append('player_pet');
+        $player = $this->player($request);
         DB::transaction(function () use ($player, $action) {
             //创建游戏记录
             $rewardLog = GameReward::create([
@@ -41,8 +33,7 @@ class PetController extends Controller
                 'pet_exp' => $player->player_pet->pet_exp += $rewardLog->pet_exp,
             ]);
         });
-        return [
-            'message' => '操作成功',
-        ];
+
+        return $this->res('操作成功');
     }
 }

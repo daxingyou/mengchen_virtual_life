@@ -31,4 +31,9 @@ class Players extends Model
             return $playerPet;
         }
     }
+
+    public function getStockIpoAttribute()
+    {
+        return StockIpo::where('issuer_id', $this->attributes['id'])->first();
+    }
 }
