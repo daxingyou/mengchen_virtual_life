@@ -16,7 +16,7 @@ class PetController extends MiniProgramController
         ]);
         $action = $request->input('action');
         $player = $this->player($request);
-        $configuration = Configuration::find(1);
+        $configuration = Configuration::findOrFail(1);
         DB::transaction(function () use ($player, $action, $configuration) {
             //创建游戏记录
             $rewardLog = GameReward::create([

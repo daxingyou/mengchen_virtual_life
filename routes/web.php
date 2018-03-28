@@ -60,4 +60,5 @@ Route::group([
     Route::post('stock/dividend-policy', 'StockDividendController@addDividendPolicy');
     Route::delete('stock/dividend-policy', 'StockDividendController@delDividendPolicy');
     Route::post('stock/ipo', 'StockIpoController@doIpo');
+    Route::post('points/purchase', 'PointsController@purchase');
 });

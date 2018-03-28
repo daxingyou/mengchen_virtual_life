@@ -16,7 +16,7 @@ class CreatePointsSoldTable extends Migration
         Schema::create('points_sold', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('buyer_id')->comment('购买者玩家id');
-            $table->decimal('sold_points')->comment('售出的身价数');
+            $table->decimal('sold_points', 18, 8)->comment('售出的身价数');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
