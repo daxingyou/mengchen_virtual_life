@@ -52,4 +52,6 @@ Route::group([
     'namespace' => 'Wechat',
 ], function () {
     Route::post('pet/interaction', 'PetController@interact');
+    Route::get('/personal/info', 'PersonalInfoController@getInfo');
+    Route::put('/personal/info', 'PersonalInfoController@updateInfo');
 });

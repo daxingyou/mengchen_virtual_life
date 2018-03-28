@@ -7,17 +7,12 @@ use App\Models\PlayerPet;
 use App\Services\WechatMiniProgramService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use EasyWeChat;
 use Illuminate\Support\Facades\DB;
 
 class PetController extends Controller
 {
-    protected $wechatApp;
-
     public function __construct(Request $request)
     {
-        $this->wechatApp = EasyWeChat::miniProgram();
-
         parent::__construct($request);
     }
 
