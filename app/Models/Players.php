@@ -18,6 +18,11 @@ class Players extends Model
         //
     ];
 
+    protected $casts = [
+        'game_points' => 'float',
+        'points' => 'float',
+    ];
+
     public function getPlayerPetAttribute()
     {
         $playerPet = PlayerPet::where('player_id', $this->attributes['id'])->first();
