@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Wechat;
 use App\Exceptions\WechatMiniProgramCommonException;
 use App\Models\StockIpo;
 use Illuminate\Http\Request;
+use App\Rules\IpoSharesLimit;
 
 class StockIpoController extends MiniProgramController
 {
@@ -14,7 +15,7 @@ class StockIpoController extends MiniProgramController
             'stock_code' => 'required|string|max:8',
             'stock_type_id' => 'required|integer|exists:stock_type,id',
             'ipo_price' => 'required|numeric',
-            'ipo_shares' => 'required|numeric',
+            'ipo_shares' => ['required', 'numeric', new IpoSharesLimit(1)],
             'dividend_policy_id' => 'required|integer|exists:stock_dividend_policy,id',
             'intro' => 'nullable|string|max:255',
         ]);
