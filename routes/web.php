@@ -54,11 +54,13 @@ Route::group([
     Route::post('pet/interaction', 'PetController@interact');
     Route::get('/personal/info', 'PersonalInfoController@getInfo');
     Route::put('/personal/info', 'PersonalInfoController@updateInfo');
+    Route::post('points/purchase', 'PointsController@purchase');
     Route::get('stock/type', 'StockTypeController@showStockType');
     Route::post('stock/type', 'StockTypeController@addStockType');
     Route::get('stock/dividend-policy', 'StockDividendController@showDividendPolicy');
     Route::post('stock/dividend-policy', 'StockDividendController@addDividendPolicy');
     Route::delete('stock/dividend-policy', 'StockDividendController@delDividendPolicy');
-    Route::post('stock/ipo', 'StockIpoController@doIpo');
-    Route::post('points/purchase', 'PointsController@purchase');
+    Route::post('stock/ipo', 'StockIpoController@ipo');
+    Route::get('stock/ipo', 'StockIpoController@getIpoInfo');
+    Route::post('stock/ipo/subscription', 'StockIpoController@subscription');
 });

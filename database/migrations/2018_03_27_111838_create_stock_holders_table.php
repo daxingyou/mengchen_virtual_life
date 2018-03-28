@@ -15,6 +15,7 @@ class CreateStockHoldersTable extends Migration
     public function up()
     {
         Schema::create('stock_holders', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('stock_code', 8)->comment('股票代码');
             $table->unsignedInteger('holder_id')->comment('持股人玩家id');
             $table->decimal('total_shares', 18, 8)->comment('持股数');

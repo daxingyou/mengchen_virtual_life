@@ -14,9 +14,9 @@ class IpoSharesLimit implements Rule
      *
      * @return void
      */
-    public function __construct($id)
+    public function __construct(Configuration $configuration)
     {
-        $this->configuration = Configuration::findOrFail($id);
+        $this->configuration = $configuration;
     }
 
     /**
