@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Models\Configuration;
 use App\Models\GameReward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,13 +16,14 @@ class PetController extends MiniProgramController
         ]);
         $action = $request->input('action');
         $player = $this->player($request);
-        DB::transaction(function () use ($player, $action) {
+        $configuration = Configuration::find(1);
+        DB::transaction(function () use ($player, $action, $configuration) {
             //创建游戏记录
             $rewardLog = GameReward::create([
                 'player_id' => $player->id,
                 'action' => $action,
-                'reward' => 0.1,    //游戏身价奖励
-                'pet_exp' => 0.1,   //宠物经验增加
+                'reward' => $configuration->pet_reward,    //游戏身价奖励
+                'pet_exp' => $configuration->pet_exp,   //宠物经验增加
             ]);
 
             //增加玩家的游戏身价
