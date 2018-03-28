@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StockHolders extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = 'stock_holders';
     protected $primaryKey = 'id';
 
@@ -15,7 +15,7 @@ class StockHolders extends Model
     ];
 
     protected $hidden = [
-        //
+        'id'
     ];
 
     protected $casts = [

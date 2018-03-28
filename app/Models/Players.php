@@ -41,4 +41,9 @@ class Players extends Model
     {
         return StockIpo::where('issuer_id', $this->attributes['id'])->first();
     }
+
+    public function getStocksAttribute()
+    {
+        return StockHolders::where('holder_id', $this->attributes['id'])->get();
+    }
 }

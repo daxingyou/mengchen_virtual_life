@@ -8,7 +8,7 @@ class PlayerController extends MiniProgramController
 {
     public function getInfo(Request $request)
     {
-        $player = $this->player($request);
+        $player = $this->player($request)->append('stocks');
         return $player;
     }
 
