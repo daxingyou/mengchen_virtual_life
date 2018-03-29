@@ -20,8 +20,8 @@ class CreateStockTradingHistoryTable extends Migration
             $table->decimal('price', 18, 8)->comment('成交价');
             $table->decimal('shares', 18, 8)->comment('成交数量');
             $table->string('taker_direction')->comment('吃单方向');
-            $table->unsignedInteger('bidding_order_id')->comment('买单id');
-            $table->unsignedInteger('asking_order_id')->comment('卖单id');
+            $table->unsignedInteger('maker_order_id')->comment('maker订单号');
+            $table->unsignedInteger('taker_order_id')->comment('taker订单号');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             $table->index('stock_code');

@@ -15,8 +15,8 @@ class StockIpo extends Model
     ];
 
     protected $casts = [
-        'ipo_price' => 'float',
-        'ipo_shares' => 'float',
-        'ipo_remained_shares' => 'float',
+        //'ipo_price' => 'float',
+        //'ipo_shares' => 'float',
+        //'ipo_remained_shares' => 'float',
     ];
 }

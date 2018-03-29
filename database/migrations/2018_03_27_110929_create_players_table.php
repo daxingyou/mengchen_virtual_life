@@ -25,6 +25,7 @@ class CreatePlayersTable extends Migration
             $table->string('intro')->nullable()->comment('个人简介');
             $table->decimal('game_points', 18, 8)->default(0)->comment('游戏赚取身价');
             $table->decimal('points', 18, 8)->default(0)->comment('身价数');
+            $table->decimal('frozen_points', 18, 8)->default(0)->comment('冻结身价数');
             $table->timestamps();
         });
 

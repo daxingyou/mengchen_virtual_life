@@ -4,28 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStockAskingTable extends Migration
+class CreateStockOrdersTable extends Migration
 {
     /**
      * Run the migrations.
-     * 卖单订单表
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('stock_asking', function (Blueprint $table) {
+        Schema::create('stock_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('stock_code', 8)->comment('股票代码');
             $table->unsignedInteger('player_id')->comment('下单者玩家id');
+            $table->string('direction')->comment('下单方向');
             $table->decimal('price', 18, 8)->comment('下单价');
             $table->decimal('shares', 18, 8)->comment('下单数量');
-            $table->decimal('avg_price', 18, 8)->comment('平均成交价');
             $table->decimal('remained_shares', 18, 8)->comment('剩余待成交股数');
             $table->unsignedInteger('status')->comment('状态(1-待成交,2-部分成交,3-完全成交,4-已取消)');
             $table->timestamps();
 
-            DB::update("ALTER TABLE players AUTO_INCREMENT = 100000;");
+            DB::update("ALTER TABLE players AUTO_INCREMENT = 10000;");
         });
     }
 
@@ -36,6 +35,6 @@ class CreateStockAskingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stock_asking');
+        Schema::dropIfExists('stock_orders');
     }
 }

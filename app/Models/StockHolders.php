@@ -18,8 +18,17 @@ class StockHolders extends Model
         'id'
     ];
 
-    protected $casts = [
-        'total_shares' => 'float',
-        'frozen_shares' => 'float',
+    protected $appends = [
+        'available_shares',
     ];
+
+    protected $casts = [
+        //'total_shares' => 'float',
+        //'frozen_shares' => 'float',
+    ];
+
+    public function getAvailableSharesAttribute()
+    {
+        return $this->attributes['total_shares'] - $this->attributes['frozen_shares'];
+    }
 }

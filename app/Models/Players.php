@@ -19,8 +19,7 @@ class Players extends Model
     ];
 
     protected $casts = [
-        'game_points' => 'float',
-        'points' => 'float',
+        //'game_points' => 'float',
     ];
 
     public function getPlayerPetAttribute()
@@ -45,5 +44,16 @@ class Players extends Model
     public function getStocksAttribute()
     {
         return StockHolders::where('holder_id', $this->attributes['id'])->get();
+    }
+
+    public function stock($stockCode)
+    {
+        return StockHolders::where('holder_id', $stockCode)->first();
+    }
+
+    public function hasEnoughAvailableShares($stockCode, $shares)
+    {
+        $availableShares = $this->stock($stockCode)->available_shares;
+        return $availableShares >= $shares;
     }
 }

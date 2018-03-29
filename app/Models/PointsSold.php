@@ -15,6 +15,6 @@ class PointsSold extends Model
     ];
 
     protected $casts = [
-        'sold_points' => 'float',
+        //'sold_points' => 'float',
     ];
 }

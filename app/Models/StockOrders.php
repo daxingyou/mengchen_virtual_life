@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StockIpoSbuscription extends Model
+class StockOrders extends Model
 {
-    public $timestamps = false;
-    protected $table = 'stock_ipo_subscription';
+    public $timestamps = true;
+    protected $table = 'stock_orders';
     protected $primaryKey = 'id';
 
     protected $guarded = [
@@ -16,9 +16,5 @@ class StockIpoSbuscription extends Model
 
     protected $hidden = [
         //
-    ];
-
-    protected $casts = [
-        //'shares_subscribed' => 'float',
     ];
 }

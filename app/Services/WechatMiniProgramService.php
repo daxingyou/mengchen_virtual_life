@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class WechatMiniProgramService
 {
+    /**
+     * @param Request $request
+     * @return \App\Models\Players
+     */
     public static function getPlayer(Request $request)
     {
         $wechatUserInfo = session($request->input('auth_code'));

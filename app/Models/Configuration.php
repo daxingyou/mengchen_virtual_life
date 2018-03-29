@@ -17,10 +17,10 @@ class Configuration extends Model
     protected $casts = [
         'max_friends' => 'integer',
         'max_holding_stocks' => 'integer',
-        'base_ipo_shares' => 'float',
-        'point_price' => 'float',
-        'pet_reward' => 'float',
-        'pet_exp' => 'pet_exp',
+        //'base_ipo_shares' => 'float',
+        //'point_price' => 'float',
+        //'pet_reward' => 'float',
+        //'pet_exp' => 'float',
         'player_id' => 'integer',
     ];
 }
