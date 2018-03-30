@@ -64,5 +64,8 @@ Route::group([
     Route::get('stock/ipo', 'StockIpoController@getIpoInfo');
     Route::post('stock/ipo/subscription', 'StockIpoController@subscription');
     Route::post('stock/order', 'StockTradingController@makeOrder');
-    Route::delete('stock/order/{order}', 'StockTradingController@cancelOrder');
+    Route::delete('stock/order/{order}', 'StockOrderController@cancelOrder');
+    Route::get('stock/order/{orderId}', 'StockOrderController@getOrder')->where('orderId', '[0-9]+');
+    Route::get('stock/orders', 'StockOrderController@getPlayerOrders');
+    //Route::get('stock/order/history', 'StockOrderController@getOrderHistory');
 });

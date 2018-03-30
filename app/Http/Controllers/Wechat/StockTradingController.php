@@ -272,43 +272,4 @@ class StockTradingController extends MiniProgramController
                 throw new WechatMiniProgramCommonException('未知的direction');
         }
     }
-
-    public function cancelOrder(Request $request, StockOrders $order)
-    {
-        if (in_array($order->status, [3, 4])) {
-            throw new WechatMiniProgramCommonException('订单已成交或已取消');
-        }
-
-        $player = $this->player($request);
-        if ($order->player_id !== $player->id) {
-            throw new WechatMiniProgramCommonException('禁止取消别人的订单');
-        }
-
-        DB::transaction(function () use ($order, $player) {
-            //返还冻结资产
-            switch ($order->direction) {
-                case 'buy':
-                    $points = $order->total_price - ($order->avg_price * $order->deal_shares);
-                    $player->frozen_points -= $points;
-                    $player->points += $points;
-                    $player->save();
-                    break;
-                case 'sell':
-                    $shares = $order->remained_shares;
-                    $stockHolder = $player->stock($order->stock_code);
-                    $stockHolder->frozen_shares -= $shares;
-                    $stockHolder->total_shares += $shares;
-                    $stockHolder->save();
-                    break;
-                default:
-                    throw new WechatMiniProgramCommonException('未知的direction');
-            }
-
-            //更改订单状态
-            $order->status = 4;
-            $order->save();
-        });
-
-        return $this->res('取消成功');
-    }
 }
