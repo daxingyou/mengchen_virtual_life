@@ -14,9 +14,18 @@ class StockIpo extends Model
         //
     ];
 
+    protected $appends = [
+        'ipo_subscribed_shares'
+    ];
+
     protected $casts = [
         //'ipo_price' => 'float',
         //'ipo_shares' => 'float',
         //'ipo_remained_shares' => 'float',
     ];
+
+    public function getIpoSubscribedSharesAttribute()
+    {
+        return $this->attributes['ipo_shares'] - $this->attributes['ipo_remained_shares'];
+    }
 }

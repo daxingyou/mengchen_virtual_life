@@ -63,4 +63,6 @@ Route::group([
     Route::post('stock/ipo', 'StockIpoController@ipo');
     Route::get('stock/ipo', 'StockIpoController@getIpoInfo');
     Route::post('stock/ipo/subscription', 'StockIpoController@subscription');
+    Route::post('stock/order', 'StockTradingController@makeOrder');
+    Route::delete('stock/order/{order}', 'StockTradingController@cancelOrder');
 });
