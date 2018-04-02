@@ -68,5 +68,6 @@ Route::group([
     Route::get('stock/order/{orderId}', 'StockOrderController@getOrder')->where('orderId', '[0-9]+');
     Route::get('stock/orders', 'StockOrderController@getPlayerOrders'); //获取当前玩家的订单
     Route::get('stock/orders/history', 'StockOrderController@getOrderHistory');  //获取某只股票的订单历史
-    Route::get('stock/depth', 'StockOrderController@getDepth'); //获取某只股票的交易深度
+    Route::get('stock/depth', 'StockMarketController@getDepth'); //获取某只股票的交易深度
+    Route::get('stock/ticker', 'StockMarketController@getTicker');
 });
