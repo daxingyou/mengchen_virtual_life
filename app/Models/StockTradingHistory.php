@@ -31,4 +31,11 @@ class StockTradingHistory extends Model
     {
         return $this->hasOne('App\Models\StockOrders', 'id', 'taker_order_id');
     }
+
+    public function getOwnerAttribute()
+    {
+        $stockIpo = StockIpo::where('stock_code', $this->attributes['stock_code'])->firstOrFail();
+        return Players::where('id', $stockIpo->issuer_id)->firstOrFail()
+            ->setHidden(['created_at', 'updated_at']);
+    }
 }

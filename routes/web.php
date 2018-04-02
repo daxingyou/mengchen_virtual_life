@@ -69,5 +69,6 @@ Route::group([
     Route::get('stock/orders', 'StockOrderController@getPlayerOrders'); //获取当前玩家的订单
     Route::get('stock/orders/history', 'StockOrderController@getOrderHistory');  //获取某只股票的订单历史
     Route::get('stock/depth', 'StockMarketController@getDepth'); //获取某只股票的交易深度
-    Route::get('stock/ticker', 'StockMarketController@getTicker');
+    Route::get('stock/ticker', 'StockMarketController@getTicker');  //获取某只股票的最近成交价
+    Route::get('stock/trend', 'StockMarketController@getTrend');    //获取所有股票的趋势（涨跌幅）
 });

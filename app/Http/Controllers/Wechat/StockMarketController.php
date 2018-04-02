@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wechat;
 
 use App\Models\StockTradingHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\StockOrders;
 
@@ -37,5 +38,51 @@ class StockMarketController extends MiniProgramController
             ->orderBy('id', 'desc')
             ->firstOrFail()
             ->setHidden(['id', 'maker_order_id', 'taker_order_id']);
+    }
+
+    public function getTrend(Request $request)
+    {
+        $stockTradingHistory = StockTradingHistory::all()
+            ->each(function ($item) {
+                $item->append('owner');
+            })
+            ->groupBy('stock_code')
+            ->map(function ($item) {
+                $owner = $item->first()->owner;
+                $yesterdayClosingPrice = $this->getYesterdayClosingPrice($item); //昨日收盘价
+                $todayLastPrice = $this->getTodayLastPrice($item);
+                $changingRate = is_null($yesterdayClosingPrice) ? 0
+                    : sprintf('%.4f', ($todayLastPrice - $yesterdayClosingPrice) / $yesterdayClosingPrice);
+                return [
+                    'changing_rate' => $changingRate,
+                    'last_price' => $todayLastPrice,
+                    'owner' => $owner,
+                ];
+            });
+        return $stockTradingHistory;
+    }
+
+    protected function getYesterdayClosingPrice($item)
+    {
+        $item = $item->filter(function ($value) {
+            return Carbon::parse($value->created_at)->isYesterday();
+        });
+        if ($item->isEmpty()) {
+            return null;
+        } else {
+            return $item->sortByDesc('id')->first()->price;
+        }
+    }
+
+    protected function getTodayLastPrice($item)
+    {
+        $item = $item->filter(function ($value) {
+            return Carbon::parse($value->created_at)->isToday();
+        });
+        if ($item->isEmpty()) {
+            return null;
+        } else {
+            return $item->sortByDesc('id')->first()->price;
+        }
     }
 }
