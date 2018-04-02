@@ -21,6 +21,7 @@ class StockOrders extends Model
     protected $casts = [
         'status' => 'integer',
         'player_id' => 'integer',
+        //'price' => 'integer',
     ];
 
     protected $appends = [

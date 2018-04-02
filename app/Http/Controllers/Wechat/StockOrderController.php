@@ -50,6 +50,25 @@ class StockOrderController extends MiniProgramController
             });
     }
 
+    public function getDepth(Request $request)
+    {
+        $request->validate([
+            'stock_code' => 'required|string|exists:stock_holders,stock_code',
+        ]);
+
+        return StockOrders::whereIn('status', [1, 2])
+            ->get()
+            ->groupBy('direction')
+            ->map(function ($item) {
+                $result = [];
+                $item->sortBy('price')->groupBy('price')
+                    ->each(function ($item, $price) use (&$result) {
+                        array_push($result, [$price, $item->sum('remained_shares')]);
+                    });
+                return $result;
+            });
+    }
+
     public function cancelOrder(Request $request, StockOrders $order)
     {
         if (in_array($order->status, [3, 4])) {
