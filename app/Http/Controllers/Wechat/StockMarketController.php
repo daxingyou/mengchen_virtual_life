@@ -67,11 +67,8 @@ class StockMarketController extends MiniProgramController
         $item = $item->filter(function ($value) {
             return Carbon::parse($value->created_at)->isYesterday();
         });
-        if ($item->isEmpty()) {
-            return null;
-        } else {
-            return $item->sortByDesc('id')->first()->price;
-        }
+       
+        return $item->isEmpty() ? null : $item->sortByDesc('id')->first()->price;
     }
 
     protected function getTodayLastPrice($item)
@@ -79,10 +76,7 @@ class StockMarketController extends MiniProgramController
         $item = $item->filter(function ($value) {
             return Carbon::parse($value->created_at)->isToday();
         });
-        if ($item->isEmpty()) {
-            return null;
-        } else {
-            return $item->sortByDesc('id')->first()->price;
-        }
+
+        return $item->isEmpty() ? null : $item->sortByDesc('id')->first()->price;
     }
 }
