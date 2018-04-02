@@ -19,8 +19,8 @@ class WechatMock
     {
         if (env('APP_ENV') === 'local') {
             $user = new SocialiteUser([
-                //'openid' => 'odh7zsgI75iT8FRh0fGlSojc9PWM',
-                'openid' => 'odh7zsgI75iT8FRh0fGlSojc9P66',
+                'openid' => 'odh7zsgI75iT8FRh0fGlSojc9PWM',
+                //'openid' => 'odh7zsgI75iT8FRh0fGlSojc9P66',
                 // 以下字段为 scope 为 snsapi_userinfo 时需要
                 'nickname' => 'overtrue',
                 'sex' => '1',

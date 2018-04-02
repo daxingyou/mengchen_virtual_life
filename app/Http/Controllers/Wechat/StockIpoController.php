@@ -21,7 +21,7 @@ class StockIpoController extends MiniProgramController
             'stock_code' => 'required|string|max:8|unique:stock_ipo,stock_code',
             'stock_type_id' => 'required|integer|exists:stock_type,id',
             'ipo_price' => 'required|numeric',
-            'ipo_shares' => ['required', 'numeric', new IpoSharesLimit($configuration)],
+            'ipo_shares' => ['required', 'numeric', 'max:' . $configuration->base_ipo_shares, new IpoSharesLimit($configuration)],
             'dividend_policy_id' => 'required|integer|exists:stock_dividend_policy,id',
             'intro' => 'nullable|string|max:255',
         ]);
@@ -60,11 +60,12 @@ class StockIpoController extends MiniProgramController
     public function getIpoInfo(Request $request)
     {
         $request->validate([
-            'stock_code' => 'required|string|max:8',
+            'stock_code' => 'nullable|string|max:8',
         ]);
-        $stockCode = $request->input('stock_code');
 
-        return StockIpo::where('stock_code', $stockCode)->firstOrFail();
+        return StockIpo::when($request->has('stock_code'), function ($query) use ($request) {
+            return $query->where('stock_code', $request->stock_code);
+        })->get();
     }
 
     public function subscription(Request $request)
