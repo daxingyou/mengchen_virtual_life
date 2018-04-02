@@ -66,6 +66,6 @@ Route::group([
     Route::post('stock/order', 'StockTradingController@makeOrder');
     Route::delete('stock/order/{order}', 'StockOrderController@cancelOrder');
     Route::get('stock/order/{orderId}', 'StockOrderController@getOrder')->where('orderId', '[0-9]+');
-    Route::get('stock/orders', 'StockOrderController@getPlayerOrders');
-    //Route::get('stock/order/history', 'StockOrderController@getOrderHistory');
+    Route::get('stock/orders', 'StockOrderController@getPlayerOrders'); //获取当前玩家的订单
+    Route::get('stock/orders/history', 'StockOrderController@getOrderHistory');  //获取某只股票的订单历史
 });

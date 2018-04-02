@@ -38,13 +38,17 @@ class StockOrderController extends MiniProgramController
             ->get();
     }
 
-//    public function getOrderHistory(Request $request)
-//    {
-//        $request->validate([
-//            'stock_code' => 'required|string|exists:stock_holders,stock_code',
-//        ]);
-//        return StockTradingHistory::with(['maker_order', 'taker_order'])->get();
-//    }
+    public function getOrderHistory(Request $request)
+    {
+        $request->validate([
+            'stock_code' => 'required|string|exists:stock_holders,stock_code',
+        ]);
+        return StockTradingHistory::where('stock_code', $request->stock_code)
+            ->get()
+            ->each(function ($item) {
+                $item->setHidden(['maker_order_id', 'taker_order_id']);
+            });
+    }
 
     public function cancelOrder(Request $request, StockOrders $order)
     {
