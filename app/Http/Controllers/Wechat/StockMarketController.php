@@ -49,13 +49,15 @@ class StockMarketController extends MiniProgramController
             ->groupBy('stock_code')
             ->map(function ($item) {
                 $owner = $item->first()->owner;
+                $lastPrice = $item->sortByDesc('id')->first()->price;
                 $yesterdayClosingPrice = $this->getYesterdayClosingPrice($item); //昨日收盘价
                 $todayLastPrice = $this->getTodayLastPrice($item);
-                $changingRate = is_null($yesterdayClosingPrice) ? 0
+                $changingRate = ($yesterdayClosingPrice === 0 or $todayLastPrice === 0) ? 0
                     : sprintf('%.4f', ($todayLastPrice - $yesterdayClosingPrice) / $yesterdayClosingPrice);
                 return [
                     'changing_rate' => $changingRate,
-                    'last_price' => $todayLastPrice,
+                    'last_price' => $lastPrice,
+                    'today_last_price' => $todayLastPrice,
                     'owner' => $owner,
                 ];
             });
@@ -67,8 +69,8 @@ class StockMarketController extends MiniProgramController
         $item = $item->filter(function ($value) {
             return Carbon::parse($value->created_at)->isYesterday();
         });
-       
-        return $item->isEmpty() ? null : $item->sortByDesc('id')->first()->price;
+
+        return $item->isEmpty() ? 0 : $item->sortByDesc('id')->first()->price;
     }
 
     protected function getTodayLastPrice($item)
@@ -77,6 +79,6 @@ class StockMarketController extends MiniProgramController
             return Carbon::parse($value->created_at)->isToday();
         });
 
-        return $item->isEmpty() ? null : $item->sortByDesc('id')->first()->price;
+        return $item->isEmpty() ? 0 : $item->sortByDesc('id')->first()->price;
     }
 }
