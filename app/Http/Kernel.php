@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            //'throttle:6,1',     //次中间件下面所有接口的访问总限制，非单个接口分别限制
             'bindings',
         ],
     ];
