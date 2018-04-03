@@ -24,6 +24,6 @@ class WechatMiniProgramCommonException extends Exception
             'code' => $this->getCode(),
             'error' => $this->getMessage(),
             'result' => false,
-        ], 200, [], JSON_UNESCAPED_UNICODE);
+        ], 400, [], JSON_UNESCAPED_UNICODE);
     }
 }

@@ -6,13 +6,53 @@ use App\Models\Configuration;
 use App\Models\GameReward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Array_;
 
+/**
+ * Class PetController
+ *
+ * @package App\Http\Controllers\Wechat
+ */
 class PetController extends MiniProgramController
 {
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Post(
+     *     path="/pet/interaction",
+     *     description="宠物交互",
+     *     operationId="pet.interaction",
+     *     tags={"pet"},
+     *
+     *     @SWG\Parameter(
+     *         description="动作名称（抚摸，喂养等）",
+     *         in="query",
+     *         name="action",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="操作成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function interact(Request $request)
     {
         $this->validate($request, [
-            'action' => 'required|string|max:255',
+            'action' => 'required|string|max:1',
         ]);
         $action = $request->input('action');
         $player = $this->player($request);

@@ -24,6 +24,6 @@ class WechatMiniProgramAuthException extends Exception
             'code' => $this->getCode(),
             'error' => $this->getMessage(),
             'result' => false,
-        ], 403, [], JSON_UNESCAPED_UNICODE);
+        ], 401, [], JSON_UNESCAPED_UNICODE);
     }
 }
