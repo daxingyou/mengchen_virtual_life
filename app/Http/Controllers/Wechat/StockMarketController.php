@@ -43,7 +43,14 @@ class StockMarketController extends MiniProgramController
 
     public function getTrend(Request $request)
     {
-        $stockTradingHistory = StockTradingHistory::all()
+        $request->validate([
+            'stock_code' => 'nullable|string|exists:stock_holders,stock_code',
+        ]);
+
+        $stockTradingHistory = StockTradingHistory::when($request->has('stock_code'), function ($qurey) use ($request) {
+            $qurey->where('stock_code', $request->stock_code);
+        })
+            ->get()
             ->each(function ($item) {
                 $item->append('owner');
             })
