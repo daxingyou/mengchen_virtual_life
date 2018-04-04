@@ -16,6 +16,7 @@ class StockMarketController extends MiniProgramController
         ]);
 
         return StockOrders::whereIn('status', [1, 2])
+            ->where('stock_code', $request->stock_code)
             ->get()
             ->groupBy('direction')
             ->map(function ($item) {

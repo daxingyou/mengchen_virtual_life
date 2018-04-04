@@ -46,7 +46,7 @@ class PetController extends MiniProgramController
     public function interact(Request $request)
     {
         $this->validate($request, [
-            'action' => 'required|string|max:1',
+            'action' => 'required|string|max:255',
         ]);
         $action = $request->input('action');
         $player = $this->player($request);

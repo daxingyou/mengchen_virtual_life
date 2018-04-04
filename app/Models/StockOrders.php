@@ -68,8 +68,18 @@ class StockOrders extends Model
 
     public function getStockHolder()
     {
-        return StockHolders::where('stock_code', $this->stock_code)
+        $stockHolder = StockHolders::where('stock_code', $this->stock_code)
             ->where('holder_id', $this->player_id)
             ->first();
+        //没有持股时买入，如果返回空trading报错
+        if (empty($stockHolder)) {
+            $stockHolder = StockHolders::create([
+                'stock_code' => $this->stock_code,
+                'holder_id' => $this->player_id,
+                'total_shares' => 0,
+                'frozen_shares' => 0,
+            ]);
+        }
+        return $stockHolder;
     }
 }

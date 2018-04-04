@@ -16,11 +16,11 @@ class WechatMiniProgramService
         $wechatUserInfo = session($request->input('auth_code'));
         $player = Players::where('openid', $wechatUserInfo->openid)->first();
         if (empty($player)) {
-            return Players::create([
+            Players::create([
                 'openid' => $wechatUserInfo->openid,
-            ]);
-        } else {
-            return $player;
+            ]);     //直接返回创建的模型，新用户的话，返回的http代码是201
+            $player = Players::where('openid', $wechatUserInfo->openid)->first();
         }
+        return $player;
     }
 }
