@@ -8,7 +8,7 @@ class PlayerController extends MiniProgramController
 {
     /**
      * @param Request $request
-     * @return \App\Models\Players
+     * @return array
      *
      * @SWG\Get(
      *     path="/player/info",
@@ -27,7 +27,21 @@ class PlayerController extends MiniProgramController
      */
     public function getInfo(Request $request)
     {
-        $player = $this->player($request)->append('stocks');
+        $player = $this->player($request)->append('stocks')->toArray();
+
+        //此玩家所拥有的每只股票数据加上涨跌幅和最新成交价数据
+        $ctrl = \App::make(\App\Http\Controllers\Wechat\StockMarketController::class);
+        $trend = \App::call([$ctrl, 'getTrend']);
+        foreach ($player['stocks'] as &$stock) {
+            if (isset($trend[$stock['stock_code']])) {
+                $stock['changing_rate'] = $trend[$stock['stock_code']]['changing_rate'];
+                $stock['last_price'] = $trend[$stock['stock_code']]['last_price'];
+            } else {
+                $stock['changing_rate'] = 0;
+                $stock['last_price'] = 0;
+            }
+        }
+
         return $player;
     }
 

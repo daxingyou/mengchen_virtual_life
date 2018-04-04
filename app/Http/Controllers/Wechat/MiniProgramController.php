@@ -120,7 +120,19 @@ use Illuminate\Http\Request;
  *                 type="object",
  *                 allOf={
  *                     @SWG\Schema(ref="#/definitions/StockHolder"),
- *                 }
+ *                 },
+ *                 @SWG\Property(
+ *                     property="changing_rate",
+ *                     description="涨跌幅",
+ *                     type="string",
+ *                     example="-0.2500",
+ *                 ),
+ *                 @SWG\Property(
+ *                     property="last_price",
+ *                     description="最新成交价",
+ *                     type="string",
+ *                     example="3.00000000",
+ *                 ),
  *             ),
  *         ),
  *     ),

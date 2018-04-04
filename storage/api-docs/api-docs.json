@@ -8,7 +8,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "local.virtual-life.com",
+    "host": "wxgame-api.max78.com",
     "basePath": "/wechat",
     "schemes": [
         "http"
@@ -595,6 +595,18 @@
                     "description": "\u6240\u6301\u80a1\u7968",
                     "type": "array",
                     "items": {
+                        "properties": {
+                            "changing_rate": {
+                                "description": "\u6da8\u8dcc\u5e45",
+                                "type": "string",
+                                "example": "-0.2500"
+                            },
+                            "last_price": {
+                                "description": "\u6700\u65b0\u6210\u4ea4\u4ef7",
+                                "type": "string",
+                                "example": "3.00000000"
+                            }
+                        },
                         "type": "object",
                         "allOf": [
                             {
