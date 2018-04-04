@@ -14,6 +14,82 @@ use Illuminate\Support\Facades\DB;
 
 class StockIpoController extends MiniProgramController
 {
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Post(
+     *     path="/stock/ipo",
+     *     description="股票ipo",
+     *     operationId="stock.ipo.add",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="stock_type_id",
+     *         description="股票类型id",
+     *         in="query",
+     *         required=true,
+     *         type="integer",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="ipo_price",
+     *         description="ipo价格",
+     *         in="query",
+     *         required=true,
+     *         type="number",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="ipo_shares",
+     *         description="ipo股票数量",
+     *         in="query",
+     *         required=true,
+     *         type="number",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="dividend_policy_id",
+     *         description="股票分红id",
+     *         in="query",
+     *         required=true,
+     *         type="integer",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="intro",
+     *         description="股票简介",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="ipo成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="通用错误",
+     *         @SWG\Schema(
+     *             ref="#/definitions/CommonError",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function ipo(Request $request)
     {
         $configuration = Configuration::find(1);
@@ -34,7 +110,7 @@ class StockIpoController extends MiniProgramController
             , '一个玩家只能发布一个ipo');
 
         $this->doIpo($player, $data, $configuration);
-        return $this->res('操作成功');
+        return $this->res('ipo成功');
     }
 
     protected function doIpo($player, $data, $configuration)
@@ -57,6 +133,31 @@ class StockIpoController extends MiniProgramController
         });
     }
 
+    /**
+     * @param Request $request
+     * @return \App\Models\StockIpo
+     *
+     * @SWG\Get(
+     *     path="/stock/ipo",
+     *     description="获取股票ipo信息",
+     *     operationId="stock.ipo.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回指定股票或全部ipo信息",
+     *         @SWG\Property(
+     *             type="array",
+     *             @SWG\Items(
+     *                 type="object",
+     *                 allOf={
+     *                     @SWG\Schema(ref="#/definitions/StockIpo"),
+     *                 }
+     *             ),
+     *         ),
+     *     ),
+     * )
+     */
     public function getIpoInfo(Request $request)
     {
         $request->validate([
@@ -68,6 +169,54 @@ class StockIpoController extends MiniProgramController
         })->get();
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Post(
+     *     path="/stock/ipo/subscription",
+     *     description="股票认购",
+     *     operationId="stock.ipo.subscription.add",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="subscribe_shares",
+     *         description="认购数量",
+     *         in="query",
+     *         required=true,
+     *         type="number",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="认购成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="通用错误",
+     *         @SWG\Schema(
+     *             ref="#/definitions/CommonError",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function subscription(Request $request)
     {
         $request->validate([

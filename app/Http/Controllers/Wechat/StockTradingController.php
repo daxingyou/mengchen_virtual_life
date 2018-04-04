@@ -12,6 +12,68 @@ use Illuminate\Support\Facades\DB;
 
 class StockTradingController extends MiniProgramController
 {
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Post(
+     *     path="/stock/order",
+     *     description="下单",
+     *     operationId="stock.order.add",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="direction",
+     *         description="下单方向（buy or sell）",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="price",
+     *         description="下单价格",
+     *         in="query",
+     *         required=true,
+     *         type="number",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="shares",
+     *         description="下单数量",
+     *         in="query",
+     *         required=true,
+     *         type="number",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="下单成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="通用错误",
+     *         @SWG\Schema(
+     *             ref="#/definitions/CommonError",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function makeOrder(Request $request)
     {
         $request->validate([
