@@ -6,6 +6,25 @@ use Illuminate\Http\Request;
 
 class PlayerController extends MiniProgramController
 {
+    /**
+     * @param Request $request
+     * @return \App\Models\Players
+     *
+     * @SWG\Get(
+     *     path="/player/info",
+     *     description="获取玩家个人信息",
+     *     operationId="player.info",
+     *     tags={"player"},
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回玩家个人信息和所持股票",
+     *         @SWG\Schema(
+     *             ref="#/definitions/PlayerStock",
+     *         ),
+     *     ),
+     * )
+     */
     public function getInfo(Request $request)
     {
         $player = $this->player($request)->append('stocks');

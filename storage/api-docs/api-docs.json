@@ -6,7 +6,7 @@
         "contact": {
             "name": "Dian"
         },
-        "version": "1.0"
+        "version": "1.0.0"
     },
     "host": "local.virtual-life.com",
     "basePath": "/wechat",
@@ -44,6 +44,23 @@
                         "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
                         "schema": {
                             "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/player/info": {
+            "get": {
+                "tags": [
+                    "player"
+                ],
+                "description": "\u83b7\u53d6\u73a9\u5bb6\u4e2a\u4eba\u4fe1\u606f",
+                "operationId": "player.info",
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u73a9\u5bb6\u4e2a\u4eba\u4fe1\u606f\u548c\u6240\u6301\u80a1\u7968",
+                        "schema": {
+                            "$ref": "#/definitions/PlayerStock"
                         }
                     }
                 }
@@ -97,6 +114,150 @@
                 }
             },
             "type": "object"
+        },
+        "CreatedAtUpdatedAt": {
+            "properties": {
+                "created_at": {
+                    "description": "\u521b\u5efa\u65f6\u95f4",
+                    "type": "string",
+                    "example": "2018-03-30 16:03:14"
+                },
+                "updated_at": {
+                    "description": "\u66f4\u65b0\u65f6\u95f4",
+                    "type": "string",
+                    "example": "2018-03-30 17:14:42"
+                }
+            },
+            "type": "object"
+        },
+        "PlayerStock": {
+            "description": "\u73a9\u5bb6\u6a21\u578b\uff08\u5305\u542b\u6240\u6301\u80a1\u7968\uff09",
+            "properties": {
+                "stocks": {
+                    "description": "\u6240\u6301\u80a1\u7968",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/StockHolder"
+                            }
+                        ]
+                    }
+                }
+            },
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Player"
+                }
+            ]
+        },
+        "Player": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10000"
+                },
+                "open_id": {
+                    "description": "\u73a9\u5bb6\u5fae\u4fe1openid",
+                    "type": "string",
+                    "example": "odh7zsgI75iT8FRh0fGlSojc9PWM"
+                },
+                "nickname": {
+                    "description": "\u73a9\u5bb6\u6635\u79f0",
+                    "type": "string",
+                    "example": "\u5c0f\u660e"
+                },
+                "gender": {
+                    "description": "\u73a9\u5bb6\u6027\u522b\uff080-\u5973,1-\u7537\uff09",
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "0"
+                },
+                "profession": {
+                    "description": "\u73a9\u5bb6\u804c\u4e1a",
+                    "type": "string",
+                    "example": "\u5f8b\u5e08"
+                },
+                "real_name": {
+                    "description": "\u73a9\u5bb6\u771f\u5b9e\u59d3\u540d",
+                    "type": "string",
+                    "example": "\u5f20\u98de"
+                },
+                "identity_id": {
+                    "description": "\u73a9\u5bb6\u8eab\u4efd\u8bc1id",
+                    "type": "string",
+                    "example": "456998188702118765"
+                },
+                "intro": {
+                    "description": "\u4e2a\u4eba\u7b80\u4ecb",
+                    "type": "string"
+                },
+                "game_points": {
+                    "description": "\u5ba0\u7269\u4ea4\u4e92\u8d5a\u53d6\u6e38\u620f\u8eab\u4ef7\u6570",
+                    "type": "string",
+                    "example": "0.10000000"
+                },
+                "points": {
+                    "description": "\u4e2a\u4eba\u6d41\u901a\u8eab\u4ef7\u603b\u6570\uff08\u5305\u62ec\u51bb\u7ed3\uff09",
+                    "type": "string",
+                    "example": "374.00000000"
+                },
+                "frozen_points": {
+                    "description": "\u51bb\u7ed3\u8eab\u4ef7\u6570",
+                    "type": "string",
+                    "example": "4.00000000"
+                }
+            },
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/CreatedAtUpdatedAt"
+                }
+            ]
+        },
+        "StockHolder": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "stock_code": {
+                    "description": "\u80a1\u7968\u4ee3\u7801",
+                    "type": "string",
+                    "example": "ABC12345"
+                },
+                "holder_id": {
+                    "description": "\u6301\u6709\u4eba\u73a9\u5bb6id",
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10000"
+                },
+                "total_shares": {
+                    "description": "\u6301\u6709\u603b\u80a1\u7968\u6570\uff08\u5305\u62ec\u51bb\u7ed3\uff09",
+                    "type": "string",
+                    "example": "5.00000000"
+                },
+                "frozen_shares": {
+                    "description": "\u51bb\u7ed3\u80a1\u7968\u6570",
+                    "type": "string",
+                    "example": "3.00000000"
+                },
+                "available_shares": {
+                    "description": "\u53ef\u7528\u80a1\u7968\u6570",
+                    "type": "string",
+                    "example": "2.00000000"
+                }
+            },
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/CreatedAtUpdatedAt"
+                }
+            ]
         }
     }
 }

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
  *     consumes={"application/json"},
  *
  *     @SWG\Info(
- *         version="1.0",
+ *         version="1.0.0",
  *         title="Virtual Life API",
  *         description="模拟人生接口",
  *         @SWG\Contact(name="Dian"),
@@ -63,6 +63,41 @@ use Illuminate\Http\Request;
  *             @SWG\Items(
  *                 type="string",
  *                 description="参数验证失败详情",
+ *             ),
+ *         ),
+ *     ),
+ *     @SWG\Definition(
+ *         definition="CreatedAtUpdatedAt",
+ *         type="object",
+ *         @SWG\Property(
+ *             property="created_at",
+ *             description="创建时间",
+ *             type="string",
+ *             example="2018-03-30 16:03:14",
+ *         ),
+ *         @SWG\Property(
+ *             property="updated_at",
+ *             description="更新时间",
+ *             type="string",
+ *             example="2018-03-30 17:14:42",
+ *         ),
+ *     ),
+ *     @SWG\Definition(
+ *         definition="PlayerStock",
+ *         description="玩家模型（包含所持股票）",
+ *         type="object",
+ *         allOf={
+ *             @SWG\Schema(ref="#/definitions/Player"),
+ *         },
+ *         @SWG\Property(
+ *             property="stocks",
+ *             description="所持股票",
+ *             type="array",
+ *             @SWG\Items(
+ *                 type="object",
+ *                 allOf={
+ *                     @SWG\Schema(ref="#/definitions/StockHolder"),
+ *                 }
  *             ),
  *         ),
  *     ),

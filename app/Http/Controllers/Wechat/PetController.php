@@ -6,13 +6,7 @@ use App\Models\Configuration;
 use App\Models\GameReward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Expr\Array_;
 
-/**
- * Class PetController
- *
- * @package App\Http\Controllers\Wechat
- */
 class PetController extends MiniProgramController
 {
     /**
