@@ -55,12 +55,109 @@
                     "player"
                 ],
                 "description": "\u83b7\u53d6\u73a9\u5bb6\u4e2a\u4eba\u4fe1\u606f",
-                "operationId": "player.info",
+                "operationId": "player.info.get",
                 "responses": {
                     "200": {
                         "description": "\u8fd4\u56de\u73a9\u5bb6\u4e2a\u4eba\u4fe1\u606f\u548c\u6240\u6301\u80a1\u7968",
                         "schema": {
                             "$ref": "#/definitions/PlayerStock"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "player"
+                ],
+                "description": "\u66f4\u65b0\u73a9\u5bb6\u4fe1\u606f",
+                "operationId": "player.info.update",
+                "parameters": [
+                    {
+                        "name": "nickname",
+                        "in": "query",
+                        "description": "\u6635\u79f0",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "description": "\u6027\u522b(0-\u5973\uff0c1-\u7537)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "profession",
+                        "in": "query",
+                        "description": "\u804c\u4e1a",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "real_name",
+                        "in": "query",
+                        "description": "\u771f\u5b9e\u59d3\u540d",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_id",
+                        "in": "query",
+                        "description": "\u8eab\u4efd\u8bc1\u53f7",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "intro",
+                        "in": "query",
+                        "description": "\u7b80\u4ecb",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u64cd\u4f5c\u6210\u529f",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/points/purchase": {
+            "post": {
+                "tags": [
+                    "point"
+                ],
+                "description": "\u8d2d\u4e70\u8eab\u4ef7",
+                "operationId": "point.purchase",
+                "parameters": [
+                    {
+                        "name": "points",
+                        "in": "query",
+                        "description": "\u8eab\u4ef7\u6570\u91cf",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8d2d\u4e70\u6210\u529f",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
                         }
                     }
                 }

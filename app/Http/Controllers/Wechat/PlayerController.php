@@ -13,7 +13,7 @@ class PlayerController extends MiniProgramController
      * @SWG\Get(
      *     path="/player/info",
      *     description="获取玩家个人信息",
-     *     operationId="player.info",
+     *     operationId="player.info.get",
      *     tags={"player"},
      *
      *     @SWG\Response(
@@ -31,6 +31,75 @@ class PlayerController extends MiniProgramController
         return $player;
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Put(
+     *     path="/player/info",
+     *     description="更新玩家信息",
+     *     operationId="player.info.update",
+     *     tags={"player"},
+     *
+     *     @SWG\Parameter(
+     *         name="nickname",
+     *         description="昵称",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="gender",
+     *         description="性别(0-女，1-男)",
+     *         in="query",
+     *         required=false,
+     *         type="integer",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="profession",
+     *         description="职业",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="real_name",
+     *         description="真实姓名",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="identity_id",
+     *         description="身份证号",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="intro",
+     *         description="简介",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="操作成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function updateInfo(Request $request)
     {
         $this->validate($request, [

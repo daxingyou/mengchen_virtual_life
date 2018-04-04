@@ -20,9 +20,9 @@ class PetController extends MiniProgramController
      *     tags={"pet"},
      *
      *     @SWG\Parameter(
+     *         name="action",
      *         description="动作名称（抚摸，喂养等）",
      *         in="query",
-     *         name="action",
      *         required=true,
      *         type="string",
      *     ),
