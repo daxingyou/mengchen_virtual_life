@@ -8,7 +8,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "local.virtual-life.com",
+    "host": "wxgame-api.max78.com",
     "basePath": "/wechat",
     "schemes": [
         "http"
