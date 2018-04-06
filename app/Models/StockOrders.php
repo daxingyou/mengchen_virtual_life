@@ -4,6 +4,78 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * @SWG\Definition(
+ *   definition="StockOrder",
+ *   type="object",
+ *       @SWG\Property(
+ *           property="id",
+ *           type="integer",
+ *           format="int32",
+ *           example="10022",
+ *       ),
+ *       @SWG\Property(
+ *           property="stock_code",
+ *           description="股票代码",
+ *           type="string",
+ *           example="ABC12345",
+ *       ),
+ *       @SWG\Property(
+ *           property="player_id",
+ *           description="下单者玩家id",
+ *           type="integer",
+ *           format="int32",
+ *           example="10000",
+ *       ),
+ *       @SWG\Property(
+ *           property="direction",
+ *           description="下单方向",
+ *           type="string",
+ *           example="sell",
+ *       ),
+ *       @SWG\Property(
+ *           property="price",
+ *           description="下单价格",
+ *           type="string",
+ *           example="3.00000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="shares",
+ *           description="下单数量",
+ *           type="string",
+ *           example="20.00000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="remained_shares",
+ *           description="剩余待成交数量",
+ *           type="string",
+ *           example="10.00000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="avg_price",
+ *           description="平均成交价",
+ *           type="string",
+ *           example="3.00000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="deal_shares",
+ *           description="已成交数量",
+ *           type="string",
+ *           example="10.00000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="status",
+ *           description="订单状态(1-待成交,2-部分成交,3-完全成交,4-已取消)",
+ *           type="integer",
+ *           example="3",
+ *       ),
+ *       allOf={
+ *           @SWG\Schema(ref="#/definitions/CreatedAtUpdatedAt"),
+ *       }
+ * )
+ *
+ */
 class StockOrders extends Model
 {
     public $timestamps = true;
@@ -30,7 +102,7 @@ class StockOrders extends Model
 
     public function getDealSharesAttribute()
     {
-        return $this->attributes['shares'] - $this->attributes['remained_shares'];
+        return sprintf('%.8f', $this->attributes['shares'] - $this->attributes['remained_shares']);
     }
 
     public function getTotalPriceAttribute()

@@ -9,6 +9,41 @@ use App\Models\StockOrders;
 
 class StockMarketController extends MiniProgramController
 {
+    /**
+     *
+     * @SWG\Get(
+     *     path="/stock/depth",
+     *     description="获取某只股票的交易深度",
+     *     operationId="stock.depth.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回此股票的交易深度",
+     *         @SWG\Property(
+     *             type="object",
+     *             allOf={
+     *                 @SWG\Schema(ref="#/definitions/StockDepth"),
+     *             }
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function getDepth(Request $request)
     {
         $request->validate([
@@ -23,12 +58,48 @@ class StockMarketController extends MiniProgramController
                 $result = [];
                 $item->sortBy('price')->groupBy('price')
                     ->each(function ($item, $price) use (&$result) {
-                        array_push($result, [$price, $item->sum('remained_shares')]);
+                        $totalRemainedShares = sprintf('%.8f', $item->sum('remained_shares'));
+                        array_push($result, [$price, $totalRemainedShares]);
                     });
                 return $result;
             });
     }
 
+    /**
+     *
+     * @SWG\Get(
+     *     path="/stock/ticker",
+     *     description="获取某只股票的最新成交数据",
+     *     operationId="stock.ticker.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回此股票的ticker",
+     *         @SWG\Property(
+     *             type="object",
+     *             allOf={
+     *                 @SWG\Schema(ref="#/definitions/StockTicker"),
+     *             }
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function getTicker(Request $request)
     {
         $request->validate([
@@ -41,6 +112,41 @@ class StockMarketController extends MiniProgramController
             ->setHidden(['id', 'maker_order_id', 'taker_order_id']);
     }
 
+    /**
+     *
+     * @SWG\Get(
+     *     path="/stock/trend",
+     *     description="获取所有(指定)股票的趋势变化",
+     *     operationId="stock.trend.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回此股票的trend",
+     *         @SWG\Property(
+     *             type="object",
+     *             allOf={
+     *                 @SWG\Schema(ref="#/definitions/StockTrend"),
+     *             }
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function getTrend(Request $request)
     {
         $request->validate([

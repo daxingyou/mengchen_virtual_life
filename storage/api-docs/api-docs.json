@@ -8,7 +8,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "wxgame-api.max78.com",
+    "host": "local.virtual-life.com",
     "basePath": "/wechat",
     "schemes": [
         "http"
@@ -389,6 +389,269 @@
                 }
             }
         },
+        "/stock/depth": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u83b7\u53d6\u67d0\u53ea\u80a1\u7968\u7684\u4ea4\u6613\u6df1\u5ea6",
+                "operationId": "stock.depth.get",
+                "parameters": [
+                    {
+                        "name": "stock_code",
+                        "in": "query",
+                        "description": "\u80a1\u7968\u4ee3\u7801",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u6b64\u80a1\u7968\u7684\u4ea4\u6613\u6df1\u5ea6",
+                        "schema": {
+                            "type": "object",
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/StockDepth"
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/ticker": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u83b7\u53d6\u67d0\u53ea\u80a1\u7968\u7684\u6700\u65b0\u6210\u4ea4\u6570\u636e",
+                "operationId": "stock.ticker.get",
+                "parameters": [
+                    {
+                        "name": "stock_code",
+                        "in": "query",
+                        "description": "\u80a1\u7968\u4ee3\u7801",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u6b64\u80a1\u7968\u7684ticker",
+                        "schema": {
+                            "type": "object",
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/StockTicker"
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/trend": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u83b7\u53d6\u6240\u6709(\u6307\u5b9a)\u80a1\u7968\u7684\u8d8b\u52bf\u53d8\u5316",
+                "operationId": "stock.trend.get",
+                "parameters": [
+                    {
+                        "name": "stock_code",
+                        "in": "query",
+                        "description": "\u80a1\u7968\u4ee3\u7801",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u6b64\u80a1\u7968\u7684trend",
+                        "schema": {
+                            "type": "object",
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/StockTrend"
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/order/{orderId}": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u83b7\u53d6\u5355\u4e2a\u8ba2\u5355\u4fe1\u606f",
+                "operationId": "stock.order.get",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "\u8ba2\u5355id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u8ba2\u5355\u4fe1\u606f",
+                        "schema": {
+                            "$ref": "#/definitions/StockOrder"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/orders": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u6279\u91cf\u83b7\u53d6\u5f53\u524d\u73a9\u5bb6\u7684\u8ba2\u5355",
+                "operationId": "stock.orders.get",
+                "parameters": [
+                    {
+                        "name": "stock_code",
+                        "in": "query",
+                        "description": "\u80a1\u7968\u4ee3\u7801",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "\u8ba2\u5355\u72b6\u6001\u7801",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "\u8ba2\u5355\u65b9\u5411\uff08buy or sell\uff09",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u8ba2\u5355\u4fe1\u606f",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/StockOrder"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/orders/history": {
+            "get": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u83b7\u53d6\u67d0\u53ea\u80a1\u7968\u7684\u8ba2\u5355\u5386\u53f2",
+                "operationId": "stock.order.history.get",
+                "parameters": [
+                    {
+                        "name": "stock_code",
+                        "in": "query",
+                        "description": "\u80a1\u7968\u4ee3\u7801",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8fd4\u56de\u8ba2\u5355\u5386\u53f2",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/definitions/StockTradingHistory"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "\u8bf7\u6c42\u53c2\u6570\u9a8c\u8bc1\u5931\u8d25",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/order/{order}": {
+            "delete": {
+                "tags": [
+                    "stock"
+                ],
+                "description": "\u53d6\u6d88\u8ba2\u5355",
+                "operationId": "stock.order.del",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "\u8ba2\u5355id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u53d6\u6d88\u6210\u529f",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "\u901a\u7528\u9519\u8bef",
+                        "schema": {
+                            "$ref": "#/definitions/CommonError"
+                        }
+                    }
+                }
+            }
+        },
         "/stock/order": {
             "post": {
                 "tags": [
@@ -623,6 +886,111 @@
                 }
             ]
         },
+        "StockDepth": {
+            "description": "\u80a1\u7968\u4ea4\u6613\u6df1\u5ea6",
+            "properties": {
+                "buy": {
+                    "description": "\u4e70\u5355\u6df1\u5ea6",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxItems": 2,
+                            "minItems": 2
+                        },
+                        "example": [
+                            "9.00000000",
+                            "2.00000000"
+                        ]
+                    }
+                },
+                "sell": {
+                    "description": "\u5356\u5355\u6df1\u5ea6",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxItems": 2,
+                            "minItems": 2
+                        },
+                        "example": [
+                            "10.00000000",
+                            "2.00000000"
+                        ]
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "StockTicker": {
+            "description": "Ticker",
+            "properties": {
+                "stock_code": {
+                    "description": "\u80a1\u7968\u4ee3\u7801",
+                    "type": "string",
+                    "example": "ABC12345"
+                },
+                "price": {
+                    "description": "\u6210\u4ea4\u4ef7\u683c",
+                    "type": "string",
+                    "example": "3.00000000"
+                },
+                "shares": {
+                    "description": "\u6210\u4ea4\u6570\u91cf",
+                    "type": "string",
+                    "example": "4.00000000"
+                },
+                "take_direction": {
+                    "description": "\u6210\u4ea4\u65b9\u5411",
+                    "type": "string",
+                    "example": "sell"
+                },
+                "created_at": {
+                    "description": "\u6210\u4ea4",
+                    "type": "string",
+                    "example": "2018-03-30 16:03:14"
+                }
+            },
+            "type": "object"
+        },
+        "StockTrend": {
+            "description": "\u80a1\u7968\u6da8\u8dcc\u5e45\u53d8\u5316",
+            "properties": {
+                "{stock_code}": {
+                    "description": "\u6b64\u53ea\u80a1\u7968\u7684\u8d8b\u52bf",
+                    "properties": {
+                        "changing_rate": {
+                            "description": "\u6da8\u8dcc\u5e45",
+                            "type": "string",
+                            "example": "-0.2500"
+                        },
+                        "last_price": {
+                            "description": "\u6700\u65b0\u6210\u4ea4\u4ef7(\u53ef\u80fd\u6700\u8fd1\u7684\u6210\u4ea4\u57283\u5929\u4e4b\u524d)",
+                            "type": "string",
+                            "example": "3.00000000"
+                        },
+                        "today_last_price": {
+                            "description": "\u8fdb\u5165\u6700\u65b0\u6210\u4ea4\u4ef7(\u65e0\u5219\u4e3a0)",
+                            "type": "string",
+                            "example": "3.00000000"
+                        },
+                        "owner": {
+                            "description": "\u6b64\u53ea\u80a1\u7968\u7684\u6240\u6709\u8005",
+                            "type": "object",
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Player"
+                                }
+                            ]
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
         "Player": {
             "properties": {
                 "id": {
@@ -821,6 +1189,114 @@
                     "$ref": "#/definitions/CreatedAtUpdatedAt"
                 }
             ]
+        },
+        "StockOrder": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10022"
+                },
+                "stock_code": {
+                    "description": "\u80a1\u7968\u4ee3\u7801",
+                    "type": "string",
+                    "example": "ABC12345"
+                },
+                "player_id": {
+                    "description": "\u4e0b\u5355\u8005\u73a9\u5bb6id",
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10000"
+                },
+                "direction": {
+                    "description": "\u4e0b\u5355\u65b9\u5411",
+                    "type": "string",
+                    "example": "sell"
+                },
+                "price": {
+                    "description": "\u4e0b\u5355\u4ef7\u683c",
+                    "type": "string",
+                    "example": "3.00000000"
+                },
+                "shares": {
+                    "description": "\u4e0b\u5355\u6570\u91cf",
+                    "type": "string",
+                    "example": "20.00000000"
+                },
+                "remained_shares": {
+                    "description": "\u5269\u4f59\u5f85\u6210\u4ea4\u6570\u91cf",
+                    "type": "string",
+                    "example": "10.00000000"
+                },
+                "avg_price": {
+                    "description": "\u5e73\u5747\u6210\u4ea4\u4ef7",
+                    "type": "string",
+                    "example": "3.00000000"
+                },
+                "deal_shares": {
+                    "description": "\u5df2\u6210\u4ea4\u6570\u91cf",
+                    "type": "string",
+                    "example": "10.00000000"
+                },
+                "status": {
+                    "description": "\u8ba2\u5355\u72b6\u6001(1-\u5f85\u6210\u4ea4,2-\u90e8\u5206\u6210\u4ea4,3-\u5b8c\u5168\u6210\u4ea4,4-\u5df2\u53d6\u6d88)",
+                    "type": "integer",
+                    "example": "3"
+                }
+            },
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/CreatedAtUpdatedAt"
+                }
+            ]
+        },
+        "StockTradingHistory": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "stock_code": {
+                    "description": "\u80a1\u7968\u4ee3\u7801",
+                    "type": "string",
+                    "example": "ABC12345"
+                },
+                "price": {
+                    "description": "\u6210\u4ea4\u4ef7\u683c",
+                    "type": "string",
+                    "example": "3.00000000"
+                },
+                "shares": {
+                    "description": "\u6210\u4ea4\u6570\u91cf",
+                    "type": "string",
+                    "example": "20.00000000"
+                },
+                "taker_direction": {
+                    "description": "\u4e3b\u52a8\u6210\u4ea4\u65b9\u5411",
+                    "type": "string",
+                    "example": "sell"
+                },
+                "maker_order_id": {
+                    "description": "\u505a\u5e02\u5546\u8ba2\u5355\u53f7",
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10001"
+                },
+                "taker_order_id": {
+                    "description": "\u4e3b\u52a8\u6210\u4ea4\u8ba2\u5355\u53f7",
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "10002"
+                },
+                "created_at": {
+                    "description": "\u521b\u5efa\u65f6\u95f4",
+                    "type": "string",
+                    "example": "2018-03-30 16:03:14"
+                }
+            },
+            "type": "object"
         },
         "StockType": {
             "properties": {

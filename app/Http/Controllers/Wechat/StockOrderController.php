@@ -11,11 +11,92 @@ use Illuminate\Support\Facades\DB;
 
 class StockOrderController extends MiniProgramController
 {
+    /**
+     * @param Request $request
+     * @return \App\Models\StockOrders
+     *
+     * @SWG\Get(
+     *     path="/stock/order/{orderId}",
+     *     description="获取单个订单信息",
+     *     operationId="stock.order.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="orderId",
+     *         description="订单id",
+     *         in="path",
+     *         required=true,
+     *         type="integer",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回订单信息",
+     *         @SWG\Schema(
+     *             ref="#/definitions/StockOrder",
+     *         ),
+     *     ),
+     * )
+     */
     public function getOrder(Request $request, $orderId)
     {
         return StockOrders::find($orderId);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Get(
+     *     path="/stock/orders",
+     *     description="批量获取当前玩家的订单",
+     *     operationId="stock.orders.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="status",
+     *         description="订单状态码",
+     *         in="query",
+     *         required=false,
+     *         type="integer",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="direction",
+     *         description="订单方向（buy or sell）",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回订单信息",
+     *         @SWG\Property(
+     *             type="array",
+     *             @SWG\Items(
+     *                 type="object",
+     *                 allOf={
+     *                     @SWG\Schema(ref="#/definitions/StockOrder"),
+     *                 }
+     *             ),
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function getPlayerOrders(Request $request)
     {
         $request->validate([
@@ -38,6 +119,46 @@ class StockOrderController extends MiniProgramController
             ->get();
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Get(
+     *     path="/stock/orders/history",
+     *     description="获取某只股票的订单历史",
+     *     operationId="stock.order.history.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回订单历史",
+     *         @SWG\Property(
+     *             type="array",
+     *             @SWG\Items(
+     *                 type="object",
+     *                 allOf={
+     *                     @SWG\Schema(ref="#/definitions/StockTradingHistory"),
+     *                 }
+     *             ),
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
     public function getOrderHistory(Request $request)
     {
         $request->validate([
@@ -50,6 +171,40 @@ class StockOrderController extends MiniProgramController
             });
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @SWG\Delete(
+     *     path="/stock/order/{order}",
+     *     description="取消订单",
+     *     operationId="stock.order.del",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="order",
+     *         description="订单id",
+     *         in="path",
+     *         required=true,
+     *         type="integer",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="取消成功",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Success",
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="通用错误",
+     *         @SWG\Schema(
+     *             ref="#/definitions/CommonError",
+     *         ),
+     *     ),
+     * )
+     */
     public function cancelOrder(Request $request, StockOrders $order)
     {
         if (in_array($order->status, [3, 4])) {
