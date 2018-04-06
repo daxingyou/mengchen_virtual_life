@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 use App\Models\Players;
 use App\Models\StockTradingHistory;
+use App\Rules\StockOrderStatusRule;
 use Illuminate\Http\Request;
 use App\Models\StockOrders;
 use App\Exceptions\WechatMiniProgramCommonException;
@@ -62,10 +63,10 @@ class StockOrderController extends MiniProgramController
      *     ),
      *     @SWG\Parameter(
      *         name="status",
-     *         description="订单状态码",
+     *         description="订单状态码,(多个状态以逗号分割)",
      *         in="query",
      *         required=false,
-     *         type="integer",
+     *         type="string",
      *     ),
      *     @SWG\Parameter(
      *         name="direction",
@@ -101,7 +102,7 @@ class StockOrderController extends MiniProgramController
     {
         $request->validate([
             'stock_code' => 'nullable|string|exists:stock_holders,stock_code',
-            'status' => 'nullable|integer|in:1,2,3,4',
+            'status' => ['nullable', 'string', new StockOrderStatusRule()],
             'direction' => 'nullable|string|in:buy,sell',
         ]);
         $player = $this->player($request);
@@ -111,7 +112,7 @@ class StockOrderController extends MiniProgramController
                 $query->where('stock_code', $request->stock_code);
             })
             ->when($request->has('status'), function ($query) use ($request) {
-                $query->where('status', $request->status);
+                $query->whereIn('status', explode(',', $request->status));
             })
             ->when($request->has('direction'), function ($query) use ($request) {
                 $query->where('direction', $request->direction);
