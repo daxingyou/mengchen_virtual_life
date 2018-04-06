@@ -64,8 +64,8 @@ class StockMarketController extends MiniProgramController
                     : sprintf('%.4f', ($todayLastPrice - $yesterdayClosingPrice) / $yesterdayClosingPrice);
                 return [
                     'changing_rate' => $changingRate,
-                    'last_price' => $lastPrice,
-                    'today_last_price' => $todayLastPrice,
+                    'last_price' => $lastPrice,             //最新成交价（可能是多天之前的）
+                    'today_last_price' => $todayLastPrice,  //今日最新成交价，如果没成交就为0
                     'owner' => $owner,
                 ];
             });
