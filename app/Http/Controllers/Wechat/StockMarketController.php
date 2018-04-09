@@ -107,10 +107,28 @@ class StockMarketController extends MiniProgramController
             'stock_code' => 'required|string|exists:stock_holders,stock_code',
         ]);
 
-        return StockTradingHistory::where('stock_code', $request->stock_code)
+        $ticker = StockTradingHistory::where('stock_code', $request->stock_code)
             ->orderBy('id', 'desc')
             ->firstOrFail()
-            ->setHidden(['id', 'maker_order_id', 'taker_order_id']);
+            ->setHidden(['id', 'maker_order_id', 'taker_order_id'])
+            ->toArray();
+        $ticker['highest_price'] = $this->getHighestOrLowestPrice($ticker['stock_code'], 'highest');
+        $ticker['lowest_price'] = $this->getHighestOrLowestPrice($ticker['stock_code'], 'lowest');
+        return $ticker;
+    }
+
+    protected function getHighestOrLowestPrice($stockCode, $symbol)
+    {
+        $tradingHistory = StockTradingHistory::where('stock_code', $stockCode)->get();
+        if (empty($tradingHistory)) {
+            return 0;
+        } else {
+            if ($symbol === 'highest') {
+                return $tradingHistory->sortByDesc('price')->first()->price;
+            } else {
+                return $tradingHistory->sortBy('price')->first()->price;
+            }
+        }
     }
 
     /**
