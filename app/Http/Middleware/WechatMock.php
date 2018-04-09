@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\WechatMiniProgramService;
 use Carbon\Carbon;
 use Closure;
 use Overtrue\Socialite\User as SocialiteUser;
@@ -34,12 +35,19 @@ class WechatMock
                 'session_key' => 'wechat_session_key',
             ]);
 
-            $miniProgramAuthCode = md5($user->openid . Carbon::today()->timestamp);
+            $miniProgramAuthCode = $this->generateAuthCode($user->openid);
             $request->merge(['auth_code' => $miniProgramAuthCode]);
-            session([$miniProgramAuthCode => $user]);           //mini_program登录码
+
+            $player = WechatMiniProgramService::getPlayer($request, $user);
+            session([$miniProgramAuthCode => $player]);           //mini_program登录码
             session(['wechat.oauth_user.default' => $user]);    //公众号授权登录
         }
 
         return $next($request);
+    }
+
+    protected function generateAuthCode($openid, $timestamp = '1523242599')
+    {
+        return md5($openid . $timestamp);
     }
 }

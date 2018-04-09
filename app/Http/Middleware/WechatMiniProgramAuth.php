@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Exceptions\WechatMiniProgramAuthException;
+use App\Services\WechatMiniProgramService;
 use Carbon\Carbon;
 use Closure;
 use EasyWeChat;
@@ -24,9 +25,12 @@ class WechatMiniProgramAuth
             $jsCode = $request->input('js_code');
             //通过js_code请求微信服务器，获取用户信息
             $userInfo = $wechatApp->auth->session($jsCode);
-            $authCode = $this->generateAuthCode($userInfo->openid, Carbon::now()->timestamp);
+            $authCode = $this->generateAuthCode($userInfo->openid);
+
             //将用户信息存储在session中，session key为authCode
-            session([$authCode => $userInfo]);
+            $request->merge(['auth_code' => $authCode]);
+            $player = WechatMiniProgramService::getPlayer($request, $userInfo);
+            session([$authCode => $player]);
 
             return [
                 'auth_code' => $authCode,   //将登录码返回给前端
@@ -41,8 +45,9 @@ class WechatMiniProgramAuth
         return $next($request);
     }
 
-    protected function generateAuthCode($openid, $timestamp)
+    protected function generateAuthCode($openid, $timestamp = '')
     {
+        $timestamp = Carbon::now()->timestamp;
         return md5($openid . $timestamp);
     }
 }

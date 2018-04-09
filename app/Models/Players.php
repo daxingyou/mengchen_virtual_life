@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  *
@@ -81,7 +82,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  *
  */
-class Players extends Model
+class Players extends Authenticatable
 {
     public $timestamps = true;
     protected $table = 'players';

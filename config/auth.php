@@ -45,6 +45,12 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        //微信小程序认证
+        'mp' => [
+            'driver' => 'mp',
+            'provider' => 'players',
+        ],
     ],
 
     /*
@@ -74,6 +80,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+         'players' => [
+             'driver' => 'eloquent',
+             'model' => App\Models\Players::class,
+         ],
     ],
 
     /*
