@@ -162,10 +162,10 @@ class StockMarketController extends MiniProgramController
                 $item->append('owner');
             })
             ->groupBy('stock_code')
-            ->map(function ($item) {
+            ->map(function ($item, $stockCode) {
                 $owner = $item->first()->owner;
                 $lastPrice = $item->sortByDesc('id')->first()->price;
-                $yesterdayClosingPrice = $this->getYesterdayClosingPrice($item); //昨日收盘价
+                $yesterdayClosingPrice = $this->getYesterdayClosingPrice($stockCode); //昨日收盘价
                 $todayLastPrice = $this->getTodayLastPrice($item);
                 $changingRate = ($yesterdayClosingPrice === 0 or $todayLastPrice === 0) ? 0
                     : sprintf('%.4f', ($todayLastPrice - $yesterdayClosingPrice) / $yesterdayClosingPrice);
@@ -179,13 +179,13 @@ class StockMarketController extends MiniProgramController
         return $stockTradingHistory;
     }
 
-    protected function getYesterdayClosingPrice($item)
+    protected function getYesterdayClosingPrice($stockCode)
     {
-        $item = $item->filter(function ($value) {
-            return Carbon::parse($value->created_at)->isYesterday();
-        });
-
-        return $item->isEmpty() ? 0 : $item->sortByDesc('id')->first()->price;
+        $yesterday = Carbon::yesterday()->toDateString();
+        $yesterdayStockPrice = StockClosingPrice::where('stock_code', $stockCode)
+            ->whereDate('date', $yesterday)
+            ->first();
+        return empty($yesterdayStockPrice) ? 0 : $yesterdayStockPrice->closing_price;
     }
 
     protected function getTodayLastPrice($item)
