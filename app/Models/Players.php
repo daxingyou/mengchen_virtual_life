@@ -74,7 +74,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *           property="frozen_points",
  *           description="冻结身价数",
  *           type="string",
- *           example="4.00000000",
+ *           example="598.50000000",
+ *       ),
+ *       @SWG\Property(
+ *           property="rong_yao_points",
+ *           description="荣耀身价数",
+ *           type="string",
+ *           example="598.5",
  *       ),
  *       allOf={
  *           @SWG\Schema(ref="#/definitions/CreatedAtUpdatedAt"),
