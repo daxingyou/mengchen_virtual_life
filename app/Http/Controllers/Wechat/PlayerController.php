@@ -33,6 +33,7 @@ class PlayerController extends MiniProgramController
         $ctrl = \App::make(\App\Http\Controllers\Wechat\StockMarketController::class);
         $trend = \App::call([$ctrl, 'getTrend']);
 
+        $zouShi = 0;
         foreach ($player['stocks'] as &$stock) {
             if (isset($trend[$stock['stock_code']])) {
                 $stock['changing_rate'] = $trend[$stock['stock_code']]['changing_rate'];
@@ -41,7 +42,10 @@ class PlayerController extends MiniProgramController
                 $stock['changing_rate'] = 0;
                 $stock['last_price'] = 0;
             }
+            $zouShi += $stock['changing_rate'];
         }
+        $zouShi = $zouShi / count($player['stocks']);
+        $player['zou_shi'] = $zouShi;
 
         return $player;
     }
