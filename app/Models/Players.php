@@ -99,7 +99,7 @@ class Players extends Authenticatable
     ];
 
     protected $appends = [
-        //
+        'rong_yao_points',
     ];
 
     protected $casts = [
@@ -145,5 +145,18 @@ class Players extends Authenticatable
     {
         $stockHolder = $this->stock($stockCode);
         return ! is_null($stockHolder) && $stockHolder->available_shares >= $shares;
+    }
+
+    public function getRongYaoPointsAttribute()
+    {
+        $rongYaoPoints = 0;
+        $stocks = StockHolders::where('holder_id', $this->attributes['id'])->get();
+        foreach ($stocks as $stock) {
+            $tradingHistory = StockTradingHistory::where('stock_code', $stock->stock_code)->orderBy('id', 'desc')->first();
+            $lastPrice = empty($tradingHistory) ? 0 : $tradingHistory->price;
+            $rongYaoPoints += $lastPrice * $stock->total_shares;
+        }
+        $rongYaoPoints += $this->attributes['points'];
+        return sprintf('%.8f', $rongYaoPoints);
     }
 }

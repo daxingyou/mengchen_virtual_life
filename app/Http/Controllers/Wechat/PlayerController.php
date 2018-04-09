@@ -33,19 +33,15 @@ class PlayerController extends MiniProgramController
         $ctrl = \App::make(\App\Http\Controllers\Wechat\StockMarketController::class);
         $trend = \App::call([$ctrl, 'getTrend']);
 
-        $rongYaoPoint = 0;  //荣耀身价
         foreach ($player['stocks'] as &$stock) {
             if (isset($trend[$stock['stock_code']])) {
                 $stock['changing_rate'] = $trend[$stock['stock_code']]['changing_rate'];
                 $stock['last_price'] = $trend[$stock['stock_code']]['last_price'];
-                $rongYaoPoint += $stock['total_shares'] * $stock['last_price'];
             } else {
                 $stock['changing_rate'] = 0;
                 $stock['last_price'] = 0;
             }
         }
-        $rongYaoPoint += $player['points'];
-        $player['rong_yao_points'] = sprintf('%.8f', $rongYaoPoint);
 
         return $player;
     }
