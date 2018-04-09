@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class getClosingPrice extends BaseCommand
 {
-    protected $initDate = '2018-04-01';     //初始日期
+    protected $initDate = '2018-03-30';     //初始日期
 
     /**
      * The name and signature of the console command.
