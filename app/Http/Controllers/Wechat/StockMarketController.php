@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Models\StockClosingPrice;
 use App\Models\StockTradingHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -194,5 +195,63 @@ class StockMarketController extends MiniProgramController
         });
 
         return $item->isEmpty() ? 0 : $item->sortByDesc('id')->first()->price;
+    }
+
+    /**
+     *
+     * @SWG\Get(
+     *     path="/stock/kline",
+     *     description="获取指定股票的kline",
+     *     operationId="stock.kline.get",
+     *     tags={"stock"},
+     *
+     *     @SWG\Parameter(
+     *         name="stock_code",
+     *         description="股票代码",
+     *         in="query",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=200,
+     *         description="返回此股票的kline",
+     *         @SWG\Property(
+     *             type="array",
+     *             example={"9.00000000", "2.00000000", "2.00000000", "2.00000000", "2.00000000"},
+     *             @SWG\Items(
+     *                 type="string",
+     *                 minItems=5,
+     *                 maxItems=5,
+     *             ),
+     *         ),
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="请求参数验证失败",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ValidationError",
+     *         ),
+     *     ),
+     * )
+     */
+    public function getKline(Request $request)
+    {
+        $request->validate([
+            'stock_code' => 'required|string|exists:stock_holders,stock_code',
+        ]);
+        $closingPriceAmount = 4;    //收盘价最近4天的
+        $stockClosingPrice = array_reverse(StockClosingPrice::where('stock_code', $request->stock_code)
+            ->orderBy('id', 'desc')
+            ->limit($closingPriceAmount)
+            ->get()
+            ->pluck('closing_price')
+            ->toArray());
+        $tradingHistory = StockTradingHistory::where('stock_code', $request->stock_code)
+            ->orderBy('id', 'desc')
+            ->first();
+        $lastPrice = empty($tradingHistory) ? sprintf('%.8f', 0) : $tradingHistory->price;
+        array_push($stockClosingPrice, $lastPrice);
+        return $stockClosingPrice;
     }
 }

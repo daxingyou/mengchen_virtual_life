@@ -72,4 +72,5 @@ Route::group([
     Route::get('stock/depth', 'StockMarketController@getDepth'); //获取某只股票的交易深度
     Route::get('stock/ticker', 'StockMarketController@getTicker');  //获取某只股票的最近成交价
     Route::get('stock/trend', 'StockMarketController@getTrend');    //获取所有股票的趋势（涨跌幅）
+    Route::get('stock/kline', 'StockMarketController@getKline');    //获取某只股票的K线（5天的数据）
 });
