@@ -24,8 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('wechat:closing-price')
+            ->dailyAt('23:58')
+            ->withoutOverlapping()
+            ->appendOutputTo(config('custom.cron_task_log'));
     }
 
     /**
