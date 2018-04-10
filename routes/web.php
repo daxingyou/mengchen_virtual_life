@@ -76,7 +76,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['wechat.oauth'],
+    'middleware' => ['wechat.oauth:default', 'auth:wechat-web'],   //wechat.oauth中间件传递的参数为配置文件的key（official_account下的）
     'prefix' => 'test',
 ], function () {
     Route::get('oauth', 'TestOauthController@testOauth');

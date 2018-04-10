@@ -1,13 +1,10 @@
 <?php
 namespace App\Extensions;
 
-use App\Exceptions\WechatMiniProgramAuthException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\UserProvider;
-use Carbon\Carbon;
-use EasyWeChat;
 
 class WechatMiniProgramGuard implements Guard
 {

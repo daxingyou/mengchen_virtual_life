@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'wechat' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/wechat'),
+            'url' => env('APP_URL').'/storage/wechat',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

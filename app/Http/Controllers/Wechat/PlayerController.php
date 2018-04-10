@@ -69,7 +69,7 @@ class PlayerController extends MiniProgramController
      *     ),
      *     @SWG\Parameter(
      *         name="gender",
-     *         description="性别(0-女，1-男)",
+     *         description="性别(0-未知，1-男，2-女)",
      *         in="query",
      *         required=false,
      *         type="integer",
@@ -123,7 +123,7 @@ class PlayerController extends MiniProgramController
     {
         $this->validate($request, [
             'nickname' => 'nullable|string|max:255',
-            'gender' => 'nullable|integer|in:0,1',
+            'gender' => 'nullable|integer|in:0,1,2',
             'profession' => 'nullable|string|max:255',
             'real_name' => 'nullable|string|max:255',
             'identity_id' => 'nullable|string|max:18',

@@ -18,7 +18,7 @@ class CreatePlayersTable extends Migration
             $table->increments('id');
             $table->string('openid')->unique()->comment('微信openid');
             $table->string('nickname')->nullable()->unique()->comment('昵称');
-            $table->unsignedTinyInteger('gender')->nullable()->comment('性别(0-女,1-男)');
+            $table->unsignedTinyInteger('gender')->nullable()->comment('性别(0-未知,1-男,2-女)');
             $table->string('profession')->nullable()->comment('职业');
             $table->string('real_name')->nullable()->comment('真实姓名');
             $table->string('identity_id', 18)->nullable()->unique()->comment('身份证id');

@@ -47,8 +47,14 @@ return [
         ],
 
         //微信小程序认证
-        'mp' => [
-            'driver' => 'mp',
+        'wechat-mp' => [
+            'driver' => 'wechat-mp',
+            'provider' => 'players',
+        ],
+
+        //微信web oauth认证
+        'wechat-web' => [
+            'driver' => 'wechat-web',
             'provider' => 'players',
         ],
     ],
