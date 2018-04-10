@@ -46,13 +46,12 @@ Route::group([
 });*/
 
 //微信小程序接口需要session功能来认证，web中间件不可或缺
+Route::view('/', 'virtual_life_client.index')->middleware('wechat.oauth:default');  //app前端入口
 Route::group([
-    'middleware' => ['wechat.oauth:default'],
+    //'middleware' => ['wechat.oauth:default'],
     'prefix' => 'wechat',
     'namespace' => 'Wechat',
 ], function () {
-    Route::view('/', 'virtual_life_client.index');  //app前端入口
-
     Route::post('pet/interaction', 'PetController@interact');
     Route::get('player/info', 'PlayerController@getInfo');
     Route::put('player/info', 'PlayerController@updateInfo');

@@ -44,7 +44,7 @@ class PlayerController extends MiniProgramController
             }
             $zouShi += $stock['changing_rate'];
         }
-        $zouShi = $zouShi / count($player['stocks']);
+        $zouShi = count($player['stocks']) === 0 ? 0 : $zouShi / count($player['stocks']);
         $player['zou_shi'] = $zouShi;
 
         return $player;

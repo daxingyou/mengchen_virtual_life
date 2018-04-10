@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Players;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Overtrue\Socialite\User;
@@ -18,6 +19,7 @@ class WechatMiniProgramService
     {
         $sessionKey = 'wechat.oauth_user.default';
         $userInfo = session($sessionKey);   //通过了oauth中间件的session不会为空
+        throw_if(!$userInfo, AuthorizationException::class);
 
         $openId = $userInfo->getId();
         $player = Players::where('openid', $openId)->first();
