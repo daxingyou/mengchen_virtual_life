@@ -205,6 +205,18 @@ use Illuminate\Http\Request;
  *             type="string",
  *             example="2018-03-30 16:03:14",
  *         ),
+ *         @SWG\Property(
+ *             property="highest_price",
+ *             description="历史最高价",
+ *             type="string",
+ *             example="4.00000000",
+ *         ),
+ *         @SWG\Property(
+ *             property="lowest_price",
+ *             description="历史最低价",
+ *             type="string",
+ *             example="0.60000000",
+ *         ),
  *     ),
  *
  *     @SWG\Definition(
