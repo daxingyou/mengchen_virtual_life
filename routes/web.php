@@ -74,3 +74,10 @@ Route::group([
     Route::get('stock/trend', 'StockMarketController@getTrend');    //获取所有股票的趋势（涨跌幅）
     Route::get('stock/kline', 'StockMarketController@getKline');    //获取某只股票的K线（5天的数据）
 });
+
+Route::group([
+    'middleware' => ['wechat.oauth'],
+    'prefix' => 'test',
+], function () {
+    Route::get('oauth', 'TestOauthController@testOauth');
+});
