@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+/*Route::get('/', 'HomeController@index');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -43,7 +43,7 @@ Route::group([
 ], function () {
     Route::view('home', 'admin.home');
     Route::view('system/log', 'admin.system.log');
-});
+});*/
 
 //微信小程序接口需要session功能来认证，web中间件不可或缺
 Route::group([
