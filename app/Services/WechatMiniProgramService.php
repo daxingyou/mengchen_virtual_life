@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\Players;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Overtrue\Socialite\User;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class WechatMiniProgramService
 {
@@ -41,7 +43,11 @@ class WechatMiniProgramService
 
         //下载图片到本地
         $subDir = 'avatar';
-        $avatarUrl = config('filesystems.disks.wechat.root') . '/' . $subDir . '/' . $player->id;
+        $fullDir = config('filesystems.disks.wechat.root') . '/' . $subDir;
+        if (!File::exists($fullDir)) {
+            Storage::makeDirectory($fullDir);   //创建目录
+        }
+        $avatarUrl = $fullDir . '/' . $player->id;
         $httpClient = new Client([
             'verify' => false,
         ]);
