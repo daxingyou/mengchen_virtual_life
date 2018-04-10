@@ -12,7 +12,7 @@ class WechatMiniProgramService
     /**
      * @return \App\Models\Players
      */
-    protected function getPlayer($request = null)
+    public static function getPlayer($request = null)
     {
         $sessionKey = 'wechat.oauth_user.default';
         $userInfo = session($sessionKey);   //通过了oauth中间件的session不会为空
@@ -20,7 +20,7 @@ class WechatMiniProgramService
         $openId = $userInfo->getId();
         $player = Players::where('openid', $openId)->first();
         if (empty($player)) {
-            $player = $this->createPlayer($userInfo);
+            $player = self::createPlayer($userInfo);
         }
         return $player;
     }
@@ -29,7 +29,7 @@ class WechatMiniProgramService
      * @param \Overtrue\Socialite\User $user
      * @return \App\Models\Players
      */
-    protected function createPlayer(User $user)
+    protected static function createPlayer(User $user)
     {
         $userInfo = $user->getOriginal();
         Players::create([
