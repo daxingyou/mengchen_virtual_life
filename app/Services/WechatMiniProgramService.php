@@ -45,9 +45,9 @@ class WechatMiniProgramService
         $subDir = 'avatar';
         $fullDir = config('filesystems.disks.wechat.root') . '/' . $subDir;
         if (!File::exists($fullDir)) {
-            Storage::makeDirectory($fullDir);   //创建目录
+            Storage::disk('wechat')->createDir($subDir);   //创建目录
         }
-        $avatarUrl = $fullDir . '/' . $player->id;
+        $avatarUrl = $fullDir . '/' . $player->id . '.jpg';
         $httpClient = new Client([
             'verify' => false,
         ]);
