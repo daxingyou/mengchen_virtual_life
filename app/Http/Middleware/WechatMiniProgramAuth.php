@@ -29,8 +29,8 @@ class WechatMiniProgramAuth
 
             //将用户信息存储在session中，session key为authCode
             $request->merge(['auth_code' => $authCode]);
-            $player = WechatMiniProgramService::getPlayer($request, $userInfo);
-            session([$authCode => $player]);
+            //$player = WechatMiniProgramService::getPlayer($request, $userInfo);
+            //session([$authCode => $player]);
 
             return [
                 'auth_code' => $authCode,   //将登录码返回给前端

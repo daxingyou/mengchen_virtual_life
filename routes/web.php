@@ -47,11 +47,12 @@ Route::group([
 
 //微信小程序接口需要session功能来认证，web中间件不可或缺
 Route::group([
-    'middleware' => ['wechat.mock', 'wechat.mauth'],
-    //'middleware' => ['auth:mp'],
+    'middleware' => ['wechat.oauth:default'],
     'prefix' => 'wechat',
     'namespace' => 'Wechat',
 ], function () {
+    Route::view('/', 'virtual_life_client.index');  //app前端入口
+
     Route::post('pet/interaction', 'PetController@interact');
     Route::get('player/info', 'PlayerController@getInfo');
     Route::put('player/info', 'PlayerController@updateInfo');
@@ -76,7 +77,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['wechat.oauth:default', 'auth:wechat-web'],   //wechat.oauth中间件传递的参数为配置文件的key（official_account下的）
+    'middleware' => ['wechat.oauth:default',],   //wechat.oauth中间件传递的参数为配置文件的key（official_account下的）
     'prefix' => 'test',
 ], function () {
     Route::get('oauth', 'TestOauthController@testOauth');

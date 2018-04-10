@@ -50,6 +50,7 @@ composer install        #安装laravle依赖
 cp .env.example .env    #配置文件(根据生产环境配置对应的参数)
 php artisan migrate     #创建表(database要提前创建)
 ln -sv ../storage/app/public/ public/storage    #创建符号链接到文件上传目录
+ln -sv ../../public/virtual_life_client ./resources/views/  #前端页面符号链接
 chmod -R {phpfpm_runner}.{phpfpm_runner} ./ #更改代码目录的权限为phpfpm程序的运行用户
 chmod +x vendor/phpunit/phpunit/phpunit #添加执行权限
 ./vendor/bin/phpunit    #代码测试

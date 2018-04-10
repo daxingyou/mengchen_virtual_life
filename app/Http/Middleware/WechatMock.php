@@ -38,9 +38,9 @@ class WechatMock
             $miniProgramAuthCode = $this->generateAuthCode($user->openid);
             $request->merge(['auth_code' => $miniProgramAuthCode]);
 
-            $player = WechatMiniProgramService::getPlayer($request, $user);
-            session([$miniProgramAuthCode => $player]);           //mini_program登录码
             session(['wechat.oauth_user.default' => $user]);    //公众号授权登录
+            //$player = WechatMiniProgramService::getPlayer($request, $user);
+            //session([$miniProgramAuthCode => $player]);           //mini_program登录码
         }
 
         return $next($request);

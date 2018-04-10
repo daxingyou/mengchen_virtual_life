@@ -37,11 +37,5 @@ class AuthServiceProvider extends ServiceProvider
             $session = $app->make('session');
             return new WechatMiniProgramGuard($name, Auth::createUserProvider($config['provider']), $request, $session);
         });
-
-        Auth::extend('wechat-web', function ($app, $name, array $config) {
-            $request = $app->make('request');
-            $session = $app->make('session');
-            return new WechatMiniProgramGuard($name, Auth::createUserProvider($config['provider']), $request, $session);
-        });
     }
 }
