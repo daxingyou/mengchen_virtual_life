@@ -40,6 +40,7 @@ class WechatMiniProgramService
             'openid' => $userInfo['openid'],
             'nickname' => $userInfo['nickname'],
             'gender' => $userInfo['sex'],
+            'points' => 500,    //新用户默认500，临时（测试版没有购买身价按钮）
         ]);     //直接返回创建的模型，新用户的话，返回的http代码是201，所以重新从数据库拿一遍
         $player = Players::where('openid', $userInfo['openid'])->first();
 
