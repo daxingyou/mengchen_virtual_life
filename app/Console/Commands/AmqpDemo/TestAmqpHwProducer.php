@@ -47,7 +47,7 @@ class TestAmqpHwProducer extends BaseCommand
         $rabbitmqPass = 'password';
         $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass);
         $channel = $connection->channel();
-        $channel->queue_declare('hello');
+        $channel->queue_declare('hello', false, true, false, false);
         $msg = new AMQPMessage($msg);
         $channel->basic_publish($msg, '', 'hello');
         $this->logInfo('Sent msg');

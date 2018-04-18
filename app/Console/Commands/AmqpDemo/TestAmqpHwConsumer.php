@@ -45,7 +45,7 @@ class TestAmqpHwConsumer extends BaseCommand
         $rabbitmqPass = 'password';
         $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass);
         $channel = $connection->channel();
-        $channel->queue_declare('hello');
+        $channel->queue_declare('hello', false, true, false, false);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
 
         $channel->basic_consume('hello', '', false, true, false, false, [$this, 'msgCallback']);
