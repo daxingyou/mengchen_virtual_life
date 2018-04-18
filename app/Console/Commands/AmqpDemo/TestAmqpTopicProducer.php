@@ -14,7 +14,7 @@ class TestAmqpTopicProducer extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'test:amqp-topic-producer {msg=hello...}';
+    protected $signature = 'test:amqp-topic-producer {routing} {msg=hello...}';
 
     /**
      * The console command description.
@@ -41,21 +41,22 @@ class TestAmqpTopicProducer extends BaseCommand
     public function handle()
     {
         $msgData = $this->argument('msg');
+        $routingKey = $this->argument('routing');
 
         $rabbitmqHost = env('RABBITMQ_HOST');
         $rabbitmqPort = env('RABBITMQ_PORT');
         $rabbitmqUser = 'admin';
         $rabbitmqPass = 'password';
-        $exName = 'ex-demo-ps';
+        $exName = 'ex.topic.demo';
         $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass);
         $channel = $connection->channel();
-        $channel->exchange_declare($exName, 'fanout', false, false, false);
+        $channel->exchange_declare($exName, 'topic', false, false, false);
 
         $msg = new AMQPMessage($msgData, [
             //'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,   //消息持久化
         ]);
 
-        $channel->basic_publish($msg, $exName);
+        $channel->basic_publish($msg, $exName, $routingKey);
 
         $this->logInfo('Sent msg');
         $channel->close();

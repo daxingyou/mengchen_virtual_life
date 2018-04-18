@@ -14,7 +14,7 @@ class TestAmqpTopicConsumer extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'test:amqp-topic-consumer';
+    protected $signature = 'test:amqp-topic-consumer {routing*}';
 
     /**
      * The console command description.
@@ -40,21 +40,24 @@ class TestAmqpTopicConsumer extends BaseCommand
      */
     public function handle()
     {
+        $routingKeys = $this->argument('routing');
         $rabbitmqHost = env('RABBITMQ_HOST');
         $rabbitmqPort = env('RABBITMQ_PORT');
         $rabbitmqUser = 'admin';
         $rabbitmqPass = 'password';
-        $exName = 'ex-demo-ps';
+        $exName = 'ex.topic.demo';
         $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass);
         $channel = $connection->channel();
-        $channel->exchange_declare($exName, 'fanout', false, false, false);
+        $channel->exchange_declare($exName, 'topic', false, false, false);
         list($queueName, ,) = $channel->queue_declare("", false, false, true, false);   //声明一个随机名字的自动销毁的队列
-        $channel->queue_bind($queueName, $exName);  //fanout交换机忽略route key
+        foreach($routingKeys as $routingKey) {
+            $channel->queue_bind($queueName, $exName, $routingKey);
+        }
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
 
         //$channel->basic_qos(null, 1, null);     //告知broker上一个消息未确认之前，只push一个消息过来
-        $channel->basic_consume($queueName, '', false, false, false, false, [$this, 'msgCallback']);
-        //第四个参数，关闭no_ack，关闭自动确认
+        $channel->basic_consume($queueName, '', false, true, false, false, [$this, 'msgCallback']);
+        //第四个参数，打开no_ack，打开自动确认
 
         while (count($channel->callbacks)) {
             $channel->wait();
@@ -66,9 +69,6 @@ class TestAmqpTopicConsumer extends BaseCommand
 
     public function msgCallback(AMQPMessage $msg)
     {
-        echo " [x] Received ", $msg->body, "\n";
-        sleep(substr_count($msg->body, '.'));
-        echo " [x] Done", "\n";
-        $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+        echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
     }
 }
