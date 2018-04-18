@@ -6,21 +6,21 @@ use App\Console\BaseCommand;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class TestAmqpConsumer extends BaseCommand
+class TestAmqpHwProducer extends BaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'test:amqp-hw-consumer';
+    protected $signature = "test:amqp-hw-producer {msg=hello world}";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'amqp consumer test';
+    protected $description = 'amqp producer test hello world';
 
     /**
      * Create a new command instance.
@@ -39,6 +39,8 @@ class TestAmqpConsumer extends BaseCommand
      */
     public function handle()
     {
+        $msg = $this->argument('msg');
+
         $rabbitmqHost = env('RABBITMQ_HOST');
         $rabbitmqPort = env('RABBITMQ_PORT');
         $rabbitmqUser = 'admin';
@@ -46,20 +48,10 @@ class TestAmqpConsumer extends BaseCommand
         $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass);
         $channel = $connection->channel();
         $channel->queue_declare('hello');
-        echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
-
-        $channel->basic_consume('hello', '', false, true, false, false, [$this, 'msgCallback']);
-
-        while (count($channel->callbacks)) {
-            $channel->wait();
-        }
-
+        $msg = new AMQPMessage($msg);
+        $channel->basic_publish($msg, '', 'hello');
+        $this->logInfo('Sent msg');
         $channel->close();
         $connection->close();
-    }
-
-    public function msgCallback(AMQPMessage $msg)
-    {
-        echo " [x] Received ", $msg->body, "\n";
     }
 }
