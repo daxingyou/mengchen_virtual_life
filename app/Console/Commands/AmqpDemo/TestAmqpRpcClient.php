@@ -4,7 +4,7 @@ namespace App\Console\Commands\AmqpDemo;
 
 use App\Console\BaseCommand;
 use App\Exceptions\MqException;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -82,8 +82,8 @@ class TestAmqpRpcClient extends BaseCommand
 
         //rcp调用
         $n = $this->argument('n');
-        $this->callRpc($n);
-        echo " [.] Got ", $this->response, "\n";
+        $result = $this->callRpc($n);
+        echo " [.] Got ", $this->response, ". Rpc result: ${result}\n";
 
         $this->closeAmqp();
     }
@@ -101,7 +101,7 @@ class TestAmqpRpcClient extends BaseCommand
         ]);
 
         //检查q.rcp队列是否存在consumer
-        //$this->checkRpcQueueConsumer();
+        $this->checkRpcQueueConsumer();
 
         $this->channel->basic_publish($msg, '', $this->rpcQueueName);
 
@@ -115,7 +115,20 @@ class TestAmqpRpcClient extends BaseCommand
             }
         }
 
-        return intval($this->response);
+        return $this->checkResponse($this->response);
+    }
+
+    protected function checkResponse($res)
+    {
+        $decodedRes = json_decode($res, true);
+        throw_if(!$decodedRes, MqException::class,
+            'rpc响应json解析失败：' . json_last_error() . '-' .json_last_error_msg());
+        if (!isset($decodedRes['success']) or !isset($decodedRes['data']) or false === $decodedRes['success']) {
+            Log::error('rpc响应消息错误：' . $res);
+            throw new MqException('rpc响应消息错误：code-' . $decodedRes['code']);
+        }
+
+        return $decodedRes['data'];
     }
 
     protected function checkRpcQueueConsumer()

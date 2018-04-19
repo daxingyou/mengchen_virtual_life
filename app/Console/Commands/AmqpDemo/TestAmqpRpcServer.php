@@ -3,7 +3,7 @@
 namespace App\Console\Commands\AmqpDemo;
 
 use App\Console\BaseCommand;
-use Illuminate\Console\Command;
+use App\Exceptions\MqException;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -78,19 +78,43 @@ class TestAmqpRpcServer extends BaseCommand
         return $this->fib($n-1) + $this->fib($n-2);
     }
 
+    //调用rpc server方法
+    protected function callFunc($func, ...$params)
+    {
+        try {
+            $data = call_user_func($func, ...$params);
+            $result = $this->buildResult($data);
+        } catch (\Exception $exception) {
+            $result = $this->buildResult($exception->getMessage(), $exception->getCode(), false);
+        }
+        return $result;
+    }
+
     public function callback($req)
     {
         $n = intval($req->body);
 
         echo " [.] fib(", $n, ")\n";
 
-        $msg = new AMQPMessage((string) $this->fib($n), [
+        $result = $this->callFunc([$this, 'fib'], $n);
+
+        $msg = new AMQPMessage($result, [
             'correlation_id' => $req->get('correlation_id'),
+            'content_type' => 'application/json',
         ]);
 
         $req->delivery_info['channel']->basic_publish(
             $msg, '', $req->get('reply_to'));
         $this->ack($req);
+    }
+
+    protected function buildResult($res, $code = -1, $success = true)
+    {
+        return json_encode([
+            'success' => $success,
+            'code' => $code,
+            'data' => $res,
+        ]);
     }
 
     protected function connectAmqp()
