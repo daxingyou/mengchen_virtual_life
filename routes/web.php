@@ -46,9 +46,9 @@ Route::group([
 });*/
 
 //微信小程序接口需要session功能来认证，web中间件不可或缺
-Route::view('/', 'virtual_life_client.index')->middleware('wechat.oauth:default');  //app前端入口
+Route::view('/', 'virtual_life_client.index')->middleware(['wechat.mock', 'wechat.oauth:default']);  //app前端入口
 Route::group([
-    //'middleware' => ['wechat.oauth:default'],
+    'middleware' => ['wechat.mock', 'wechat.oauth:default'],
     'prefix' => 'wechat',
     'namespace' => 'Wechat',
 ], function () {
