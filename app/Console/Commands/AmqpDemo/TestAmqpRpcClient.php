@@ -3,8 +3,10 @@
 namespace App\Console\Commands\AmqpDemo;
 
 use App\Console\BaseCommand;
+use App\Exceptions\MqException;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Exception;
 
 class TestAmqpRpcClient extends BaseCommand
 {
@@ -35,6 +37,7 @@ class TestAmqpRpcClient extends BaseCommand
     protected $callBackQueueName;
 
     protected $rpcQueueName = 'q.rpc';
+    protected $rpcTimeout = '6';    //rpc调用的超时时间（秒）
 
     /**
      * The name and signature of the console command.
@@ -95,6 +98,9 @@ class TestAmqpRpcClient extends BaseCommand
             'reply_to' => $this->callBackQueueName,
         ]);
 
+        //检查q.rcp队列是否存在consumer
+        $this->checkRpcQueueConsumer();
+
         $this->channel->basic_publish($msg, '', $this->rpcQueueName);
 
         //如果没有收到响应就阻塞
@@ -103,6 +109,17 @@ class TestAmqpRpcClient extends BaseCommand
         }
 
         return intval($this->response);
+    }
+
+    protected function checkRpcQueueConsumer()
+    {
+        try {
+            $res = $this->channel->queue_declare($this->rpcQueueName, true);
+            if ($res[2] <= 0)
+                throw new MqException('rpc server未启动');
+        } catch (Exception $exception) {
+            throw new MqException($exception->getMessage());
+        }
     }
 
     public function onResponse($req)

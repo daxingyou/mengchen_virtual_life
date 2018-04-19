@@ -6,4 +6,6 @@ return [
 
     'WechatMiniProgramAuthException' => 2000,
     'WechatMiniProgramCommonException' => 2001,
+
+    'MqException' => 10000,
 ];
