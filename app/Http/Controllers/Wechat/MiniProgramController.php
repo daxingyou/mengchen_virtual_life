@@ -24,40 +24,23 @@ use Illuminate\Http\Request;
  *         definition="Success",
  *         type="object",
  *         @SWG\Property(
+ *             property="success",
+ *             description="执行结果",
+ *             type="boolean",
+ *             default="true",
+ *         ),
+ *         @SWG\Property(
  *             property="code",
  *             description="返回码，成功为-1",
  *             type="integer",
  *             format="int32",
- *             example="-1",
+ *             default="-1",
  *         ),
  *         @SWG\Property(
  *             property="message",
  *             description="消息",
  *             type="string",
  *             example="操作成功",
- *         ),
- *     ),
- *     @SWG\Definition(
- *         definition="CommonError",
- *         type="object",
- *         @SWG\Property(
- *             property="code",
- *             description="返回码，大于等于0",
- *             type="integer",
- *             format="int32",
- *             example="2001",
- *         ),
- *         @SWG\Property(
- *             property="error",
- *             description="错误消息提示",
- *             type="string",
- *             example="只能操作您自己创建的policy",
- *         ),
- *         @SWG\Property(
- *             property="result",
- *             description="结果(false)",
- *             type="boolean",
- *             default=false,
  *         ),
  *     ),
  *     @SWG\Definition(
@@ -267,6 +250,7 @@ class MiniProgramController extends Controller
     public function res($msg)
     {
         return [
+            'success' => true,
             'code' => -1,
             'message' => $msg,
         ];

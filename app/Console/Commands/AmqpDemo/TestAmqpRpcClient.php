@@ -111,7 +111,7 @@ class TestAmqpRpcClient extends BaseCommand
             try {
                 $this->channel->wait(null, false, $this->rpcTimeout);
             } catch (AMQPTimeoutException $exception) {
-                throw new MqException('等待rpc响应超时' . $this->rpcTimeout . 's', $exception);
+                throw new MqException('等待rpc响应超时' . $this->rpcTimeout . 's', null, $exception);
             }
         }
 
