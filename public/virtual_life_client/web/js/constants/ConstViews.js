@@ -1,0 +1,1 @@
+var ConstViews=function(){function i(){}return i.LOADING="LoadingView",i.LOGIN="LoginView",i.HOME="HomeView",i.PROFILE="ProfileView",i.CARDINFO="CardInfoView",i.STOCK="StockView",i.WALLET="WalletView",i.PUBLISH="PublishView",i.INFOEDIT="InfoEditView",i.PET="PetView",i.FRIEND="FriendView",i.RANK="RankView",i}();

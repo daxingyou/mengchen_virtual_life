@@ -17,5 +17,3 @@ yarn-error.log
 
 .env
 
-/public/virtual_life_client
-/resources/views/virtual_life_client

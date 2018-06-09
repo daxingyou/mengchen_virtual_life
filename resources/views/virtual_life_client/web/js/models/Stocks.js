@@ -1,0 +1,1 @@
+var Stocks=function(){function t(){}return t.setStocksData=function(a){console.log(a);var n=JSON.parse(a);if(null!=n){t.data=[];for(var o in n)if(n.hasOwnProperty(o)){var r=n[o];r.stock_code=o.toString(),t.data.push(r)}}},t.data=[],t.currentSelected=null,t}();
